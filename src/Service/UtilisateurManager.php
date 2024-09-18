@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Utilisateur;
+use App\Repository\UtilisateurRepository;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 
@@ -11,6 +12,7 @@ class UtilisateurManager implements UtilisateurManagerInterface
 
     public function __construct(
         private readonly UserPasswordHasherInterface $userPasswordHasher,
+        private readonly UtilisateurRepository $utilisateurRepository,
     )
     {
     }
@@ -24,8 +26,10 @@ class UtilisateurManager implements UtilisateurManagerInterface
     private function generateCode(Utilisateur $utilisateur, ?string $code): void
     {
         if ($code === null) {
-            $octetsAleatoires = random_bytes(ceil(5 * 6 / 8));
-            $code = substr(base64_encode($octetsAleatoires), 0, 5);
+            do {
+                $octetsAleatoires = random_bytes(ceil(5 * 6 / 8));
+                $code = substr(base64_encode($octetsAleatoires), 0, 5);
+            } while ($this->utilisateurRepository->findOneBy(['code' => $code]) !== null);
         }
         $utilisateur->setCode($code);
     }

@@ -4,11 +4,18 @@ namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\Length;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_LOGIN', fields: ['login'])]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_CODE', fields: ['code'])]
+#[UniqueEntity(fields: ['login'],message: 'Ce login est déjà pris')]
+#[UniqueEntity(fields: ['email'],message: 'Cet email est déjà pris')]
+#[UniqueEntity(fields: ['code'],message: 'ce code est déjà utilisé')]
 class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -38,6 +45,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?bool $visible = null;
 
     #[ORM\Column(length: 255)]
+    #[Length(exactly: 8,exactMessage: 'Le code doit être de 8 caractères alphanumériques')]
     private ?string $code = null;
 
     public function getId(): ?int

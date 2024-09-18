@@ -1,3 +1,6 @@
+{% extends 'base.html.twig' %}
+{% block title %} Inscription {% endblock %}
+{% block body %}
 <main>
     <div class="form-inscription">
         {{ form_start(form) }}
@@ -17,6 +20,7 @@
             <div class="form-input">
                 {{ form_label(form.plainPassword) }}
                 {{ form_widget(form.plainPassword) }}
+                {{ form_help(form.plainPassword) }}
             </div>
 
             <div class="form-input">
@@ -36,3 +40,4 @@
         {{ form_end(form) }}
     </div>
 </main>
+{% endblock %}

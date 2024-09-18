@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Utilisateur;
 use App\Form\InscriptionUtilisateurType;
+use App\Service\MessageFlashManager;
+use App\Service\MessageFlashManagerInterface;
 use App\Service\UtilisateurManagerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,7 +17,8 @@ class UtilisateurController extends AbstractController
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly UtilisateurManagerInterface $utilisateurManager
+        private readonly UtilisateurManagerInterface $utilisateurManager,
+        private readonly MessageFlashManagerInterface $messageFlashManager
     )
     {
     }
@@ -30,7 +33,6 @@ class UtilisateurController extends AbstractController
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($user);
             $password = $form->get('plainPassword')->getData();
             $code =  $form->get('code')->getData();
             $this->utilisateurManager->createUser($user,$password,$code);
@@ -38,6 +40,7 @@ class UtilisateurController extends AbstractController
             $this->entityManager->flush();
             $this->addFlash('success','Vous vous êtes inscrit');
         }
+        $this->messageFlashManager->addFormErrorsAsFlash($form);
         return $this->render('utilisateur/inscription.html.twig',
         ['form'=>$form->createView()]);
     }

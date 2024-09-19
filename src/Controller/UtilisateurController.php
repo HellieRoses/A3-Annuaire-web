@@ -59,6 +59,6 @@ class UtilisateurController extends AbstractController
     #[Route('/test', name:'test', methods: ['GET'])]
     public function test():Response
     {
-        return $this->render('utilisateur/test.html.twig');
+        return $this->render('test.html.twig');
     }
 }

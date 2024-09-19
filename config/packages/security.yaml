@@ -16,6 +16,15 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            form_login:
+                login_path: connexion
+                check_path: connexion
+                default_target_path: test #TODO change
+                always_use_default_target_path: true
+                enable_csrf: true
+            logout:
+                path: /deconnexion
+                target: connexion #TODO change
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

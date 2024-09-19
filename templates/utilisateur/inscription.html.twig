@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title %} Inscription {% endblock %}
+{% block body %}
+<main>
+    <div class="form-inscription">
+        {{ form_start(form) }}
+
+        <fieldset>
+            <legend>Inscription</legend>
+            <div class="form-input">
+                {{ form_label(form.login) }}
+                {{ form_widget(form.login) }}
+            </div>
+
+            <div class="form-input">
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email) }}
+            </div>
+
+            <div class="form-input">
+                {{ form_label(form.plainPassword) }}
+                {{ form_widget(form.plainPassword) }}
+                {{ form_help(form.plainPassword) }}
+            </div>
+
+            <div class="form-input">
+                {{ form_label(form.code) }}
+                {{ form_widget(form.code) }}
+            </div>
+
+            <div class="form-input">
+                {{ form_label(form.visible) }}
+                {{ form_widget(form.visible) }}
+            </div>
+
+            {{ form_widget(form.inscription, {'label':'S\'inscrire', 'attr': {'class': 'basic-form-submit'}}) }}
+
+        </fieldset>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+</main>
+{% endblock %}

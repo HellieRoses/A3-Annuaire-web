@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -47,6 +48,33 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     #[Length(exactly: 8,exactMessage: 'Le code doit être de 8 caractères alphanumériques')]
     private ?string $code = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $last_connexion = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $last_modification = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $name = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $first_name = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $phone = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $nationality = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $linkedin = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $profession = null;
+
+    #[ORM\Column(type: Types::ARRAY, nullable: true)]
+    private ?array $spoken_languages = null;
 
     public function getId(): ?int
     {
@@ -154,6 +182,114 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCode(string $code): static
     {
         $this->code = $code;
+
+        return $this;
+    }
+
+    public function getLastConnexion(): ?\DateTimeInterface
+    {
+        return $this->last_connexion;
+    }
+
+    public function setLastConnexion(?\DateTimeInterface $last_connexion): static
+    {
+        $this->last_connexion = $last_connexion;
+
+        return $this;
+    }
+
+    public function getLastModification(): ?\DateTimeInterface
+    {
+        return $this->last_modification;
+    }
+
+    public function setLastModification(?\DateTimeInterface $last_modification): static
+    {
+        $this->last_modification = $last_modification;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->first_name;
+    }
+
+    public function setFirstName(?string $first_name): static
+    {
+        $this->first_name = $first_name;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): static
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getNationality(): ?string
+    {
+        return $this->nationality;
+    }
+
+    public function setNationality(?string $nationality): static
+    {
+        $this->nationality = $nationality;
+
+        return $this;
+    }
+
+    public function getLinkedin(): ?string
+    {
+        return $this->linkedin;
+    }
+
+    public function setLinkedin(?string $linkedin): static
+    {
+        $this->linkedin = $linkedin;
+
+        return $this;
+    }
+
+    public function getProfession(): ?string
+    {
+        return $this->profession;
+    }
+
+    public function setProfession(?string $profession): static
+    {
+        $this->profession = $profession;
+
+        return $this;
+    }
+
+    public function getSpokenLanguages(): ?array
+    {
+        return $this->spoken_languages;
+    }
+
+    public function setSpokenLanguages(?array $spoken_languages): static
+    {
+        $this->spoken_languages = $spoken_languages;
 
         return $this;
     }

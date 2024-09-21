@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %} Profil {% endblock %}
+{% block body %}
+    <main>
+        <h2>Profil de {{ utilisateur.login }}</h2>
+        {% if utilisateur.visible %}
+            <p style="color: green">visible</p>
+        {% else %}
+            <p style="color: red">masqué</p>
+        {% endif %}
+        <p>login: {{ utilisateur.login }}</p>
+        <p>email: {{ utilisateur.email }}</p>
+        <p></p>
+    </main>
+{% endblock %}

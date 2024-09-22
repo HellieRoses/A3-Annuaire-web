@@ -63,18 +63,18 @@ class UtilisateurController extends AbstractController
         if(!$this->isGranted('ROLE_USER')){
             return $this->redirectToRoute('connexion');
         }
-        $user = new Utilisateur();
+        $user = $this->getUser();
         $form= $this->createForm(ProfilUtilisateurType::class, $user,options:[
             'method'=>'POST',
             'action'=>$this->generateUrl('editionProfil')
         ]);
-
+        $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $code =  $form->get('code')->getData();
             $this->utilisateurManager->modifyUser($user,$code);
             $this->entityManager->persist($user);
             $this->entityManager->flush();
-            $this->addFlash('success','Profil bien modifié');
+            $this->addFlash('success','Profil modifié');
             return $this->redirectToRoute("test");
         }
 

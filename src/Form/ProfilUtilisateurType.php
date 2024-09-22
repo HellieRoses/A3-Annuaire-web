@@ -44,7 +44,7 @@ class ProfilUtilisateurType extends AbstractType
                 "label" => "Numéro de téléphone",
                 "required" => false,
                 "constraints"=>[
-                    new Regex("(0|\\+[1-9]{2})[1-9][0-9]{8}", "Le numéro de téléphone n'est pas du bon format")
+                    new Regex('/^[0-9]{10}+$/', "Le numéro de téléphone n'est pas du bon format")
                 ]
             ])
             ->add('nationality', CountryType::class,[

@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Entity\Utilisateur;
 use App\Repository\UtilisateurRepository;
+use App\Service\CreateUserHelper;
 use App\Service\UtilisateurManager;
 use App\Service\UtilisateurManagerInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,6 +24,7 @@ class CreateUserCommand extends Command
     public function __construct(
         private readonly EntityManagerInterface      $entityManager,
         private readonly UtilisateurManagerInterface $utilisateurManager,
+        private readonly CreateUserHelper $createUserHelper,
     )
     {
         parent::__construct();
@@ -34,7 +36,7 @@ class CreateUserCommand extends Command
             ->addOption('login','l' ,InputOption::VALUE_REQUIRED, 'The login of the new user')
             ->addOption('password','p', InputOption::VALUE_REQUIRED, 'The password of the new user')
             ->addOption('email', null,InputOption::VALUE_REQUIRED, 'The email of the new user')
-            ->addOption('code', null,InputOption::VALUE_OPTIONAL, 'The code of the new user')
+            ->addOption('code', null,InputOption::VALUE_OPTIONAL, 'The code of the new user','')
             ->addOption('visible',null, InputOption::VALUE_NEGATABLE, 'Is the new user visible')
             ->addOption('admin', null,InputOption::VALUE_NEGATABLE, 'Give the new user the admin rights');
     }
@@ -56,7 +58,7 @@ class CreateUserCommand extends Command
         $this->utilisateurManager->createUser($user, $password, $code);
 
         if ($input->getOption('admin')) {
-
+            //TODO gestion admin
         }
 
         $this->entityManager->persist($user);
@@ -78,14 +80,14 @@ class CreateUserCommand extends Command
         $visible = $input->getOption('visible');
         $admin = $input->getOption('admin');
 
-        while (!$this->utilisateurManager->verifyLogin($login)) {
+        while (!$this->createUserHelper->verifyLogin($login)) {
             $io->note('The login must be provided and not be already taken');
 
             $login = $io->ask('What is the login?');
         }
         $input->setOption('login', $login);
 
-        while (!$this->utilisateurManager->verifyPassword($password)) {
+        while (!$this->createUserHelper->verifyPassword($password)) {
             $io->note('The Password must be provided and ...');
 
             $password = $io->askHidden('What is the password?');
@@ -93,21 +95,20 @@ class CreateUserCommand extends Command
         }
         $input->setOption('password', $password);
 
-        $pattern = "/^[\w\-\+]+(\.[\w\-]+)*@[\w\-]+(\.[\w\-]+)*\.[\w\-]{2,4}$/";
+        while (!$this->createUserHelper->verifyEmail($email)){
+            $io->note("The email must be provided and not be already taken");
 
-        if (is_null($email) || !preg_match($pattern, $email)) {
-            do {
-                $email = $io->ask('What is the email?');
-            } while (!preg_match($pattern,$email));
-            //VERIF
-            $input->setOption('email', $email);
+            $email = $io->ask('What is the email?');
         }
-        if (is_null($code)) {
+        $input->setOption('email', $email);
+
+        while (!$this->createUserHelper->verifyCode($code)) {
+            $io->note("The code must be 8 alphanumeric characters long");
+
             $code = $io->ask('What is the code? (press <return> to generate a code)');
-
-            //VERIF
-            $input->setOption('code', $code);
         }
+        $input->setOption('code', $code);
+
         if (is_null($visible)) {
             $visible = $io->confirm('Is the user visible? (press <return> to make it visible)');
             $input->setOption('visible', $visible);

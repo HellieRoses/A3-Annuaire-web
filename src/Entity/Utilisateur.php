@@ -73,9 +73,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $profession = null;
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
-    private ?array $spoken_languages = null;
-
     public function getId(): ?int
     {
         return $this->id;

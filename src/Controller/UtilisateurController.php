@@ -43,6 +43,7 @@ class UtilisateurController extends AbstractController
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             $this->addFlash('success','Vous vous êtes inscrit');
+            return $this->redirectToRoute('connexion');
         }
         $this->messageFlashManager->addFormErrorsAsFlash($form);
         return $this->render('utilisateur/inscription.html.twig',
@@ -53,7 +54,7 @@ class UtilisateurController extends AbstractController
     public function connexion(AuthenticationUtils $authenticationUtils):Response
     {
         if($this->isGranted('ROLE_USER')){
-            return $this->redirectToRoute('test');
+            return $this->redirectToRoute('listeUtilisateurs');
         }
         $lastLogin = $authenticationUtils->getLastUsername();
         return $this->render('utilisateur/connexion.html.twig',['last_login' => $lastLogin]);
@@ -77,7 +78,6 @@ class UtilisateurController extends AbstractController
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             $this->addFlash('success','Profil modifié');
-            return $this->redirectToRoute("test");
         }
 
         $this->messageFlashManager->addFormErrorsAsFlash($form);
@@ -85,13 +85,7 @@ class UtilisateurController extends AbstractController
         ['form' => $form->createView()]);
     }
 
-    #[Route('/test', name:'test', methods: ['GET'])]
-    public function test():Response
-    {
-        return $this->render('test.html.twig');
-    }
-
-    #[Route('/utilisateurs', name:'listeUtilisateurs', methods:['GET'])]
+    #[Route('/', name:'listeUtilisateurs', methods:['GET'])]
     public function listerUtilisateurs(): Response
     {
         if ($this->isGranted('ROLE_ADMIN')){

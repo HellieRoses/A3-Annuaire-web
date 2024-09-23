@@ -49,11 +49,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[Length(exactly: 8,exactMessage: 'Le code doit être de 8 caractères alphanumériques')]
     private ?string $code = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $last_connexion = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $last_modification = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
@@ -72,6 +67,12 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $profession = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $lastConnexion = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $lastModification = null;
 
     public function getId(): ?int
     {
@@ -183,30 +184,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getLastConnexion(): ?\DateTimeInterface
-    {
-        return $this->last_connexion;
-    }
-
-    public function setLastConnexion(?\DateTimeInterface $last_connexion): static
-    {
-        $this->last_connexion = $last_connexion;
-
-        return $this;
-    }
-
-    public function getLastModification(): ?\DateTimeInterface
-    {
-        return $this->last_modification;
-    }
-
-    public function setLastModification(?\DateTimeInterface $last_modification): static
-    {
-        $this->last_modification = $last_modification;
-
-        return $this;
-    }
-
+   
     public function getName(): ?string
     {
         return $this->name;
@@ -289,6 +267,30 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         if ($index !== false) {
             unset($this->roles[$index]);
         }
+    }
+
+    public function getLastConnexion(): ?\DateTimeInterface
+    {
+        return $this->lastConnexion;
+    }
+
+    public function setLastConnexion(?\DateTimeInterface $lastConnexion): static
+    {
+        $this->lastConnexion = $lastConnexion;
+
+        return $this;
+    }
+
+    public function getLastModification(): ?string
+    {
+        return $this->lastModification;
+    }
+
+    public function setLastModification(?string $lastModification): static
+    {
+        $this->lastModification = $lastModification;
+
+        return $this;
     }
 
 }

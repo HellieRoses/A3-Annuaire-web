@@ -94,7 +94,7 @@ class UtilisateurController extends AbstractController
     #[Route('/utilisateurs', name:'listeUtilisateurs', methods:['GET'])]
     public function listerUtilisateurs(): Response
     {
-        $users = $this->utilisateurRepository->findAll();
+        $users = $this->utilisateurRepository->findBy(["visible" => 1]);
         return $this->render('utilisateur/listeUtilisateur.html.twig',['users'=>$users]);
     }
 

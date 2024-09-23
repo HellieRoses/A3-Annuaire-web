@@ -1,10 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %} Liste Utilisateur {% endblock %}
 {% block body %}
-
     {% for user in users %}
-        {% if user.visible %}
-            {{ include('/utilisateur/utilisateur.html.twig', {'user' : user}) }}
-        {% endif %}
+        {{ include('/utilisateur/utilisateur.html.twig', {'user' : user}) }}
     {% endfor %}
 {% endblock %}

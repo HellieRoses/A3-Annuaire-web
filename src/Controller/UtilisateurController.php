@@ -94,7 +94,11 @@ class UtilisateurController extends AbstractController
     #[Route('/utilisateurs', name:'listeUtilisateurs', methods:['GET'])]
     public function listerUtilisateurs(): Response
     {
-        $users = $this->utilisateurRepository->findBy(["visible" => 1]);
+        if ($this->isGranted('ROLE_ADMIN')){
+            $users = $this->utilisateurRepository->findAll();
+        }else {
+            $users = $this->utilisateurRepository->findBy(["visible" => 1]);
+        }
         return $this->render('utilisateur/listeUtilisateur.html.twig',['users'=>$users]);
     }
 

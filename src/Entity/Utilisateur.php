@@ -278,5 +278,17 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    public function addRole($role) : void {
+        if(!in_array($role, $this->roles)) {
+            $this->roles[] = $role;
+        }
+    }
+    public function removeRole($role) : void {
+        $index = array_search($role, $this->roles);
+        
+        if ($index !== false) {
+            unset($this->roles[$index]);
+        }
+    }
 
 }

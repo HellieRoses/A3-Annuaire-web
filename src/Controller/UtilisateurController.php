@@ -21,7 +21,8 @@ class UtilisateurController extends AbstractController
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly UtilisateurManagerInterface $utilisateurManager,
-        private readonly MessageFlashManagerInterface $messageFlashManager
+        private readonly MessageFlashManagerInterface $messageFlashManager,
+        private UtilisateurRepository $utilisateurRepository,
     )
     {
     }
@@ -88,6 +89,13 @@ class UtilisateurController extends AbstractController
     public function test():Response
     {
         return $this->render('test.html.twig');
+    }
+
+    #[Route('/utilisateurs', name:'listeUtilisateurs', methods:['GET'])]
+    public function listerUtilisateurs(): Response
+    {
+        $users = $this->utilisateurRepository->findBy(["visible" => 1]);
+        return $this->render('utilisateur/listeUtilisateur.html.twig',['users'=>$users]);
     }
 
 

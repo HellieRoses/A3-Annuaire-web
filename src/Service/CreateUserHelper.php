@@ -4,7 +4,7 @@ namespace App\Service;
 
 use App\Repository\UtilisateurRepository;
 
-class CreateUserHelper
+class CreateUserHelper implements CreateUserHelperInterface
 {
 
     public function __construct(

@@ -279,15 +279,4 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getSpokenLanguages(): ?array
-    {
-        return $this->spoken_languages;
-    }
-
-    public function setSpokenLanguages(?array $spoken_languages): static
-    {
-        $this->spoken_languages = $spoken_languages;
-
-        return $this;
-    }
 }

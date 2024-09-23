@@ -1,0 +1,27 @@
+<div class="utilisateur_presentation" style="background: bisque; border: 1px black; border-radius: 6px; display: flex; flex-direction: column; margin-bottom: 20px">
+    <div style="display: flex; align-items: center">
+        <p>{{ user.login }}</p>
+        {% if  user.name is not null and user.firstName is not null%}
+        <p>- {{user.firstName}} {{ user.name }} -</p>
+        {% endif %}
+        {% if user.nationality is not null %}
+        <img src="https://flagcdn.com/48x36/{{user.nationality|lower}}.png" style="width: 30px; height: 50%;"/>
+        {% endif %}
+    </div>
+    {% if user.profession is not null %}
+    <div style="display: flex">
+    <p>{{ user.profession }}</p>
+    </div>
+    {% endif %}
+    <div style="display: flex">
+        <p>{{ user.email }}</p>
+        {% if user.linkedin is not null%}
+            <div>
+                <img src="{{ asset("img/linkedin.png") }}"/>
+                <p> {{ user.linkedin }}</p>
+            </div>
+        {% endif %}
+        <a href="">Voir plus </a><!-- TODO LINK TO PROFILE !>
+    </div>
+
+</div>

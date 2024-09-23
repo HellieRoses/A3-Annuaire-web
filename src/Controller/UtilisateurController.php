@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Utilisateur;
 use App\Form\InscriptionUtilisateurType;
 use App\Form\ProfilUtilisateurType;
+use App\Repository\UtilisateurRepository;
 use App\Service\MessageFlashManager;
 use App\Service\MessageFlashManagerInterface;
 use App\Service\UtilisateurManagerInterface;
@@ -20,7 +21,8 @@ class UtilisateurController extends AbstractController
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly UtilisateurManagerInterface $utilisateurManager,
-        private readonly MessageFlashManagerInterface $messageFlashManager
+        private readonly MessageFlashManagerInterface $messageFlashManager,
+        private UtilisateurRepository $utilisateurRepository,
     )
     {
     }
@@ -87,6 +89,13 @@ class UtilisateurController extends AbstractController
     public function test():Response
     {
         return $this->render('test.html.twig');
+    }
+
+    #[Route('/utilisateurs', name:'listeUtilisateurs', methods:['GET'])]
+    public function listerUtilisateurs(): Response
+    {
+        $users = $this->utilisateurRepository->findAll();
+        return $this->render('utilisateur/listeUtilisateur.html.twig',['users'=>$users]);
     }
 
 

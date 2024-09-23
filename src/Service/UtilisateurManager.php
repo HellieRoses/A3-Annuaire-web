@@ -25,10 +25,11 @@ class UtilisateurManager implements UtilisateurManagerInterface
 
     private function generateCode(Utilisateur $utilisateur, ?string $code): void
     {
+        $length=8;
         if ($code === null) {
             do {
-                $octetsAleatoires = random_bytes(ceil(5 * 6 / 8));
-                $code = substr(base64_encode($octetsAleatoires), 0, 5);
+                $octetsAleatoires = random_bytes(ceil($length * 6 / 8));
+                $code = substr(base64_encode($octetsAleatoires), 0, $length);
             } while ($this->utilisateurRepository->findOneBy(['code' => $code]) !== null);
         }
         $utilisateur->setCode($code);

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Utilisateur;
 use App\Form\InscriptionUtilisateurType;
 use App\Form\ProfilUtilisateurType;
+use App\Repository\UtilisateurRepository;
 use App\Service\MessageFlashManager;
 use App\Service\MessageFlashManagerInterface;
 use App\Service\UtilisateurManagerInterface;
@@ -89,5 +90,13 @@ class UtilisateurController extends AbstractController
         return $this->render('test.html.twig');
     }
 
+
+    #[Route('/profil/{code}', name:'profil', methods: ['GET'])]
+    public function profil(string $code, UtilisateurRepository $repository):Response
+    {
+        $utilisateur = $repository->findOneBy(["code" => $code]);
+
+        return $this->render('utilisateur/profil.html.twig', ['utilisateur' => $utilisateur]);
+    }
 
 }

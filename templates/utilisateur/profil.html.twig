@@ -8,10 +8,16 @@
         {% else %}
             <p style="color: red">masqué</p>
         {% endif %}
-        <p>Dernière modification du profil: xx/xx/xxxx</p>
-        <p>Dernière connexion: xx/xx/xxxx</p>
-        <p></p>
+        <p>Dernière connexion: {{ utilisateur.lastConnexion }}</p>
+        <p>Dernière modification du profil: {{ utilisateur.lastModification }}</p>
         <p>Login: {{ utilisateur.login }}</p>
         <p>Email: {{ utilisateur.email }}</p>
+        <p>Prénom: {{ utilisateur.firstName }}</p>
+        <p>Nom: {{ utilisateur.name }}</p>
+        <p>Numéro de téléphone: {{ utilisateur.phone }}</p>
+        <p>Nationalitées: {{ utilisateur.nationality }}</p>
+        <p>LinkedIn: {{ utilisateur.linkedin }}</p>
+        <p>Profession: {{ utilisateur.profession }}</p>
+        <p>Languages parlées: {{ utilisateur.spokenLanguages }}</p>
     </main>
 {% endblock %}

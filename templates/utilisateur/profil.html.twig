@@ -15,8 +15,8 @@
         <p>Prénom: {{ utilisateur.firstName }}</p>
         <p>Nom: {{ utilisateur.name }}</p>
         <p>Numéro de téléphone: {{ utilisateur.phone }}</p>
-        <p>Nationalité: <img src="https://flagsapi.com/{{ utilisateur.nationality  }}/flat/32.png" alt="drapeau nationalité" style="vertical-align: middle;"></p>
-        <p>LinkedIn: {{ utilisateur.linkedin }}</p>
+        <p>Nationalité: <img src="https://flagsapi.com/{{ utilisateur.nationality }}/flat/32.png" alt="drapeau nationalité" style="vertical-align: middle;"></p>
+        <p>LinkedIn: <a href="{{ utilisateur.linkedin }}" target="_blank">{{ utilisateur.linkedin }}</a></p>
         <p>Profession: {{ utilisateur.profession }}</p>
     </main>
 {% endblock %}

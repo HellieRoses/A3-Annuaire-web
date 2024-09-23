@@ -42,4 +42,9 @@ class UtilisateurManager implements UtilisateurManagerInterface
         $this->generateCode($utilisateur, $code);
     }
 
+    public function modifyUser(Utilisateur $utilisateur, ?string $code): void
+    {
+       $this->generateCode($utilisateur, $code);
+    }
+
 }

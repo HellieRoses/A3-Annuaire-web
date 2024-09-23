@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Utilisateur;
 use App\Form\InscriptionUtilisateurType;
-use App\Repository\UtilisateurRepository;
+use App\Form\ProfilUtilisateurType;
 use App\Service\MessageFlashManager;
 use App\Service\MessageFlashManagerInterface;
 use App\Service\UtilisateurManagerInterface;
@@ -57,17 +57,37 @@ class UtilisateurController extends AbstractController
         return $this->render('utilisateur/connexion.html.twig',['last_login' => $lastLogin]);
     }
 
+    #[Route('/profil/edition', name:'editionProfil', methods: ['GET', 'POST'])]
+    public function editionProfil(Request $request):Response
+    {
+        if(!$this->isGranted('ROLE_USER')){
+            return $this->redirectToRoute('connexion');
+        }
+        $user = $this->getUser();
+        $form= $this->createForm(ProfilUtilisateurType::class, $user,options:[
+            'method'=>'POST',
+            'action'=>$this->generateUrl('editionProfil')
+        ]);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $code =  $form->get('code')->getData();
+            $this->utilisateurManager->modifyUser($user,$code);
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+            $this->addFlash('success','Profil modifié');
+            return $this->redirectToRoute("test");
+        }
+
+        $this->messageFlashManager->addFormErrorsAsFlash($form);
+        return  $this->render('utilisateur/modification_profil.html.twig',
+        ['form' => $form->createView()]);
+    }
+
     #[Route('/test', name:'test', methods: ['GET'])]
     public function test():Response
     {
         return $this->render('test.html.twig');
     }
 
-    #[Route('/profil/{code}', name:'profil', methods: ['GET'])]
-    public function profil(string $code, UtilisateurRepository $repository):Response
-    {
-        $utilisateur = $repository->findOneBy(["code" => $code]);
 
-        return $this->render('utilisateur/profil.html.twig', ['utilisateur' => $utilisateur]);
-    }
 }

@@ -59,10 +59,6 @@ class ProfilUtilisateurType extends AbstractType
                 "label" => "Profession",
                 "required" => false,
             ])
-            ->add('spoken_languages', TextType::class, [
-                "label" => "Langues parlées",
-                "required" => false,
-            ])
             ->add("edition", SubmitType::class,[])
         ;
     }

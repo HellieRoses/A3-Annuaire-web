@@ -97,4 +97,12 @@ class UtilisateurController extends AbstractController
     }
 
 
+    #[Route('/profil/utilisateur/{code}', name:'profil', methods: ['GET'])]
+    public function profil(string $code, UtilisateurRepository $repository):Response
+    {
+        $utilisateur = $repository->findOneBy(["code" => $code]);
+
+        return $this->render('utilisateur/profil.html.twig', ['utilisateur' => $utilisateur]);
+    }
+
 }

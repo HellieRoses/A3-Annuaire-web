@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block title %} Profil {% endblock %}
+{% block body %}
+    <main>
+        <h2>Profil de {{ utilisateur.login }}</h2>
+        {% if utilisateur.visible %}
+            <p style="color: green">visible</p>
+        {% else %}
+            <p style="color: red">masqué</p>
+        {% endif %}
+        <p>Dernière connexion: {{ utilisateur.lastConnexion }}</p>
+        <p>Dernière modification du profil: {{ utilisateur.lastModification }}</p>
+        <p>Login: {{ utilisateur.login }}</p>
+        <p>Email: {{ utilisateur.email }}</p>
+        <p>Prénom: {{ utilisateur.firstName }}</p>
+        <p>Nom: {{ utilisateur.name }}</p>
+        <p>Numéro de téléphone: {{ utilisateur.phone }}</p>
+        <p>Nationalité: <img src="https://flagsapi.com/{{ utilisateur.nationality }}/flat/32.png" alt="drapeau nationalité" style="vertical-align: middle;"></p>
+        <p>LinkedIn: <a href="{{ utilisateur.linkedin }}" target="_blank">{{ utilisateur.linkedin }}</a></p>
+        <p>Profession: {{ utilisateur.profession }}</p>
+    </main>
+{% endblock %}

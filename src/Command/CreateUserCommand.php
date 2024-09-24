@@ -118,7 +118,7 @@ class CreateUserCommand extends Command
 
         }
         if (is_null($admin)) {
-            $admin=$io->confirm('Is the user admin? (press <return> to make it admin)');
+            $admin=$io->confirm('Is the user admin? (press <return> to make it admin)',false);
             $input->setOption('admin', $admin);
         }
     }

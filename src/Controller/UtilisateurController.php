@@ -105,4 +105,11 @@ class UtilisateurController extends AbstractController
         return $this->render('utilisateur/profil.html.twig', ['utilisateur' => $utilisateur]);
     }
 
+    #[Route('/profil/utilisateur/{code}/json', name:'profilFormatJSON', methods: ['GET'])]
+    public function profilFormatJSON(string $code, UtilisateurRepository $repository):Response
+    {
+        $utilisateur = $repository->findOneBy(["code" => $code]);
+
+        return $this->json($utilisateur);
+    }
 }

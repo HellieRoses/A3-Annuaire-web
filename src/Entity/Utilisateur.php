@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -17,6 +18,8 @@ use Symfony\Component\Validator\Constraints\Length;
 #[UniqueEntity(fields: ['login'],message: 'Ce login est déjà pris')]
 #[UniqueEntity(fields: ['email'],message: 'Cet email est déjà pris')]
 #[UniqueEntity(fields: ['code'],message: 'ce code est déjà utilisé')]
+
+#[ORM\HasLifecycleCallbacks]
 class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -71,9 +74,10 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $lastConnexion = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $lastModification = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $lastModification = null;
 
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -281,16 +285,25 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getLastModification(): ?string
+    #[ORM\PreUpdate]
+    public function preUpdateDateModification(PreUpdateEventArgs $args): void
+    {
+        if(!$args->hasChangedField('lastConnexion')) {
+            $this->lastModification = (new \DateTime('now', new \DateTimeZone('Europe/Paris')));
+        }
+    }
+
+    public function getLastModification(): ?\DateTimeInterface
     {
         return $this->lastModification;
     }
 
-    public function setLastModification(?string $lastModification): static
+    public function setLastModification(?\DateTimeInterface $lastModification): static
     {
         $this->lastModification = $lastModification;
 
         return $this;
     }
+
 
 }

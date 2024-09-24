@@ -73,7 +73,6 @@ class UtilisateurController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $code =  $form->get('code')->getData();
-            $user->setLastModification((new \DateTime('now'))->format('Y-m-d H:i:s') );
             $this->utilisateurManager->modifyUser($user,$code);
             $this->entityManager->persist($user);
             $this->entityManager->flush();

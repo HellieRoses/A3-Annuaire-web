@@ -48,4 +48,5 @@ class UtilisateurManager implements UtilisateurManagerInterface
        $this->generateCode($utilisateur, $code);
     }
 
+
 }

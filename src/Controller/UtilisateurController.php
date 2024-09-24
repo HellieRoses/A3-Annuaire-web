@@ -103,7 +103,7 @@ class UtilisateurController extends AbstractController
     }
 
 
-    #[Route('/profil/{code}', name:'profil', methods: ['GET'])]
+    #[Route('/profil/utilisateur/{code}', name:'profil', methods: ['GET'])]
     public function profil(string $code, UtilisateurRepository $repository):Response
     {
         $utilisateur = $repository->findOneBy(["code" => $code]);

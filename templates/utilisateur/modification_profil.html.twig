@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+{% block title %} Modification du profil {% endblock %}
+{% block body %}
+    <main>
+        {{ app.user.login }}
+        <div class="form-edition">
+            {{ form_start(form) }}
+
+            <fieldset>
+                <legend>Modification</legend>
+
+                <div class="form-input">
+                    {{ form_label(form.code) }}
+                    {{ form_widget(form.code, {value: app.user.code}) }}
+                </div>
+
+                <div class="form-input">
+                    {{ form_label(form.name) }}
+                    {{ form_widget(form.name, {value: app.user.name}) }}
+                </div>
+
+                <div class="form-input">
+                    {{ form_label(form.first_name) }}
+                    {{ form_widget(form.first_name, {value: app.user.firstName}) }}
+                </div>
+
+                <div class="form-input">
+                    {{ form_label(form.phone) }}
+                    {{ form_widget(form.phone , {value: app.user.phone}) }}
+                </div>
+
+                <div class="form-input">
+                    {{ form_label(form.nationality) }}
+                    {{ form_widget(form.nationality, {value: app.user.nationality}) }}
+                </div>
+
+                <div class="form-input">
+                    {{ form_label(form.linkedin) }}
+                    {{ form_widget(form.linkedin , {value: app.user.linkedin}) }}
+                </div>
+
+                <div class="form-input">
+                    {{ form_label(form.profession) }}
+                    {{ form_widget(form.profession , {value: app.user.profession}) }}
+                </div>
+
+                <div class="form-input">
+                    {{ form_label(form.visible) }}
+                    {{ form_widget(form.visible, {value: app.user.visible}) }}
+                </div>
+
+                {{ form_widget(form.edition, {'label':'Modifier', 'attr': {'class': 'basic-form-submit'}}) }}
+
+            </fieldset>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+    </main>
+{% endblock %}

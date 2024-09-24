@@ -11,6 +11,7 @@ use App\Service\MessageFlashManagerInterface;
 use App\Service\UtilisateurManagerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -102,7 +103,12 @@ class UtilisateurController extends AbstractController
     {
         $utilisateur = $repository->findOneBy(["code" => $code]);
 
-        return $this->render('utilisateur/profil.html.twig', ['utilisateur' => $utilisateur]);
+        if ($utilisateur != null) {
+            return $this->render('utilisateur/profil.html.twig', ['utilisateur' => $utilisateur]);
+        }
+        else {
+            return new JsonResponse(null, Response::HTTP_FORBIDDEN);
+        }
     }
 
     #[Route('/profil/utilisateur/{code}/json', name:'profilFormatJSON', methods: ['GET'])]

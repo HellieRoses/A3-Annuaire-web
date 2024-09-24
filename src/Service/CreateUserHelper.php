@@ -18,9 +18,9 @@ class CreateUserHelper implements CreateUserHelperInterface
         if (empty($password)) {
             return false;
         }
-        /*TODO if (!preg_match("#^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\d\w\W]{8,30}$#", $password)){
+        if (!preg_match("#^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,30}$#", $password)){
             return false;
-        }*/
+        }
         return true;
     }
 
@@ -57,23 +57,21 @@ class CreateUserHelper implements CreateUserHelperInterface
         return true;
     }
 
-    public function verifyCode(?string $code): bool
+    public function verifyCode(?string $code,bool $generate): bool
     {
-        if (is_null($code)) {
-            return false;
-        }
-        if (empty($code)) {
+        if ($generate) {
             return true;
+        }
+        if (is_null($code) ) {
+            return false;
         }
         if (strlen($code) != 8) {
             return false;
         }
-        /*TODO
-        $pattern = "";
+        $pattern = "/^[a-zA-Z0-9]+$/";
         if (!preg_match($pattern, $code)) {
             return false;
         }
-        */
         return true;
     }
 }

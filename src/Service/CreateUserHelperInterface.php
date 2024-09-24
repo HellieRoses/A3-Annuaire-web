@@ -10,5 +10,5 @@ interface CreateUserHelperInterface
 
     public function verifyEmail(?string $email): bool;
 
-    public function verifyCode(?string $code): bool;
+    public function verifyCode(?string $code,bool $generate): bool;
 }

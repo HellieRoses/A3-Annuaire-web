@@ -36,7 +36,7 @@ class CreateUserCommand extends Command
             ->addOption('login','l' ,InputOption::VALUE_REQUIRED, 'The login of the new user')
             ->addOption('password','p', InputOption::VALUE_REQUIRED, 'The password of the new user')
             ->addOption('email', null,InputOption::VALUE_REQUIRED, 'The email of the new user')
-            ->addOption('code', null,InputOption::VALUE_OPTIONAL, 'The code of the new user','')
+            ->addOption('code', null,InputOption::VALUE_OPTIONAL, 'The code of the new user')
             ->addOption('visible',null, InputOption::VALUE_NEGATABLE, 'Is the new user visible')
             ->addOption('admin', null,InputOption::VALUE_NEGATABLE, 'Give the new user the admin rights');
     }
@@ -58,7 +58,7 @@ class CreateUserCommand extends Command
         $this->utilisateurManager->createUser($user, $password, $code);
 
         if ($input->getOption('admin')) {
-            //TODO gestion admin
+            $user->addRole("ROLE_ADMIN");
         }
 
         $this->entityManager->persist($user);
@@ -101,11 +101,14 @@ class CreateUserCommand extends Command
             $email = $io->ask('What is the email?');
         }
         $input->setOption('email', $email);
-
-        while (!$this->createUserHelper->verifyCode($code)) {
+        $generate=false;
+        while (!$this->createUserHelper->verifyCode($code,$generate)) {
             $io->note("The code must be 8 alphanumeric characters long");
 
             $code = $io->ask('What is the code? (press <return> to generate a code)');
+            if (is_null($code)) {
+                $generate=true;
+            }
         }
         $input->setOption('code', $code);
 

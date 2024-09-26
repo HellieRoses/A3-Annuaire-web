@@ -305,5 +305,10 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function isAdmin() : bool
+    {
+        return in_array('ROLE_ADMIN', $this->roles);
+    }
+
 
 }

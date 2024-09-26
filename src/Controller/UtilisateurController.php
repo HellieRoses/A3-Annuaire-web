@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class UtilisateurController extends AbstractController
 {
@@ -107,21 +108,23 @@ class UtilisateurController extends AbstractController
             return $this->render('utilisateur/profil.html.twig', ['utilisateur' => $utilisateur]);
         }
         else {
-            return new JsonResponse(null, Response::HTTP_FORBIDDEN);
+            return new JsonResponse(null, Response::HTTP_NOT_FOUND);
         }
     }
 
     #[Route('/profil/utilisateur/{code}/json', name:'profilFormatJSON', methods: ['GET'])]
-    public function profilFormatJSON(string $code, UtilisateurRepository $repository):Response
+    public function profilFormatJSON(string $code, UtilisateurRepository $repository, SerializerInterface $serializer):Response
     {
         $utilisateur = $repository->findOneBy(["code" => $code]);
 
         if ($utilisateur != null) {
-            $utilisateur->setPasswordNull();
-            return $this->json($utilisateur);
+            $utilisateurArray = $serializer->normalize($utilisateur);
+            unset($utilisateurArray["password"]);
+            $jsonUtilisateur = json_encode($utilisateurArray);
+            return new Response($jsonUtilisateur, 200, ['Content-Type' => 'application/json']);
         }
         else {
-            return new JsonResponse(null, Response::HTTP_FORBIDDEN);
+            return new JsonResponse(null, Response::HTTP_NOT_FOUND);
         }
     }
 }

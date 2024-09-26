@@ -304,11 +304,4 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    public function setPasswordNull(): static
-    {
-        $this->password = null;
-
-        return $this;
-    }
 }

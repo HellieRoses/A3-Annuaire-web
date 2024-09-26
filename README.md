@@ -1,5 +1,13 @@
 # Annuaire
 
+## Lien du dépot Git
+
+
+
+## Utilisatton de l'application
+
+
+
 ## Commande pour la création d'utilisateur
 
 Pour créer un utilisateur dans le terminal, il faut rentrer la commande suivante : create:user
@@ -18,7 +26,7 @@ L'option --email permet de renseigner le mail de l'utilisateur à créer, celui-
 
 - Mot de Passe
 
-L'option --
+L'option --password permet de renseigner le mot de passe de l'utilisateur. En interactif, le mot de passe sera caché pour plus de sécurité
 
 - Code
 
@@ -26,10 +34,15 @@ L'option --code permet de renseigner le code à utiliser pour créer l'utilisate
 
 - Visibilité
 
-L'option --visible et --no-visible 
+L'option --visible et --no-visible permettent de définir si l'utilisateur sera visible ou caché depuis la liste des utilisateurs dans la page principale du site
 
 - Role admin
 
 l'option --admin ou --no-admin permet de déterminer si l'utilisateur à créer aura le rôle admin ou non. 
 
 Toutes les options qui ne seront pas renseigné dans l'éxécution de la commande seront demandé de façon interactive pour que tous les champs soient renseignés. De même, les valeurs d'options qui ne seront pas valide seront à renseigner de nouveau.
+
+## Investissement du groupe
+
+
+## Indications supplémentaires

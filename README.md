@@ -46,3 +46,7 @@ Toutes les options qui ne seront pas renseigné dans l'éxécution de la command
 
 
 ## Indications supplémentaires
+
+### Mode Maintenance
+
+Concernant le mode maintenance, pour l'activer il faut se rendre dans le fichier config/services.yaml. Il faut ensuite modifier la valeur du paramétre maintenance_mode pour le mettre à true. Pour le désactiver, il faut passer ce paramètre à false

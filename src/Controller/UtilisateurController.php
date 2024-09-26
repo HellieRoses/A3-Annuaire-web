@@ -108,7 +108,7 @@ class UtilisateurController extends AbstractController
             return $this->render('utilisateur/profil.html.twig', ['utilisateur' => $utilisateur]);
         }
         else {
-            return new JsonResponse(null, Response::HTTP_NOT_FOUND);
+            return new Response(null, Response::HTTP_NOT_FOUND);
         }
     }
 

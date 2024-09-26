@@ -116,6 +116,12 @@ class UtilisateurController extends AbstractController
     {
         $utilisateur = $repository->findOneBy(["code" => $code]);
 
-        return $this->json($utilisateur);
+        if ($utilisateur != null) {
+            $utilisateur->setPasswordNull();
+            return $this->json($utilisateur);
+        }
+        else {
+            return new JsonResponse(null, Response::HTTP_FORBIDDEN);
+        }
     }
 }

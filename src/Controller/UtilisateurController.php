@@ -100,28 +100,26 @@ class UtilisateurController extends AbstractController
 
 
     #[Route('/profil/utilisateur/{code}', name:'profil', methods: ['GET'])]
-    public function profil(string $code, UtilisateurRepository $repository):Response
+    public function profil(?Utilisateur $utilisateur):Response
     {
-        $utilisateur = $repository->findOneBy(["code" => $code]);
 
         if ($utilisateur != null) {
             return $this->render('utilisateur/profil.html.twig', ['utilisateur' => $utilisateur]);
         }
         else {
-            return new Response(null, Response::HTTP_NOT_FOUND);
+            $this->addFlash("error","L'utilisateur n'existe pas");
+            return $this->redirectToRoute("listeUtilisateurs");
         }
     }
 
     #[Route('/profil/utilisateur/{code}/json', name:'profilFormatJSON', methods: ['GET'])]
-    public function profilFormatJSON(string $code, UtilisateurRepository $repository, SerializerInterface $serializer):Response
+    public function profilFormatJSON(?Utilisateur $utilisateur, SerializerInterface $serializer):Response
     {
-        $utilisateur = $repository->findOneBy(["code" => $code]);
-
-        if ($utilisateur != null) {
+        if ($utilisateur !== null) {
             $utilisateurArray = $serializer->normalize($utilisateur);
             unset($utilisateurArray["password"]);
             $jsonUtilisateur = json_encode($utilisateurArray);
-            return new Response($jsonUtilisateur, 200, ['Content-Type' => 'application/json']);
+            return new JsonResponse($jsonUtilisateur, 200, ['Content-Type' => 'application/json']);
         }
         else {
             return new JsonResponse(null, Response::HTTP_NOT_FOUND);

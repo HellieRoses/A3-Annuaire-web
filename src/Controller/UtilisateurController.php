@@ -119,8 +119,7 @@ class UtilisateurController extends AbstractController
     {
         $page_name = null;
         if ($utilisateur != null) {
-            $page_name = null;
-            if($code=== $this->getUser()->getCode() ){
+            if($utilisateur == $this->getUser() ){
                 $page_name="profilUser";
             }
             return $this->render('utilisateur/profil.html.twig', ['utilisateur' => $utilisateur,"page_name" => $page_name]);

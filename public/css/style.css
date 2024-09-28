@@ -51,7 +51,7 @@ nav {
     & .underlined{
         text-decoration: underline;
         text-underline-offset: 10px;
-        color: #cccccc;
+        color: white;
     }
 }
 

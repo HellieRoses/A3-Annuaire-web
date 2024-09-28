@@ -44,7 +44,7 @@ class UtilisateurController extends AbstractController
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             $this->addFlash('success','Vous vous êtes inscrit');
-            return $this->redirectToRoute('register',['form' => null,'login'=>null]);
+            return $this->redirectToRoute('register',['form' => null,'login'=>null,"page_name" => null]);
         }
         $this->messageFlashManager->addFormErrorsAsFlash($form);
         return $this->redirectToRoute('register');
@@ -72,7 +72,7 @@ class UtilisateurController extends AbstractController
         ]);
         $form->handleRequest($request);
         $lastLogin = $authenticationUtils->getLastUsername();
-        return $this->render('utilisateur/register.html.twig', ['form' => $form, 'last_login' => $lastLogin]);
+        return $this->render('utilisateur/register.html.twig', ['form' => $form, 'last_login' => $lastLogin, "page_name" => null]);
     }
 
     #[Route('/profil/edition', name:'editionProfil', methods: ['GET', 'POST'])]
@@ -97,7 +97,7 @@ class UtilisateurController extends AbstractController
 
         $this->messageFlashManager->addFormErrorsAsFlash($form);
         return  $this->render('utilisateur/modification_profil.html.twig',
-        ['form' => $form->createView()]);
+        ['form' => $form->createView(), "page_name" => null]);
     }
 
     #[Route('/', name:'listeUtilisateurs', methods:['GET'])]
@@ -108,7 +108,7 @@ class UtilisateurController extends AbstractController
         }else {
             $users = $this->utilisateurRepository->findBy(["visible" => 1]);
         }
-        return $this->render('utilisateur/listeUtilisateur.html.twig',['users'=>$users]);
+        return $this->render('utilisateur/listeUtilisateur.html.twig',['users'=>$users, 'page_name' => 'userList']);
     }
 
 
@@ -116,8 +116,11 @@ class UtilisateurController extends AbstractController
     public function profil(string $code, UtilisateurRepository $repository):Response
     {
         $utilisateur = $repository->findOneBy(["code" => $code]);
-
-        return $this->render('utilisateur/profil.html.twig', ['utilisateur' => $utilisateur]);
+        $page_name = null;
+        if($code=== $this->getUser()->getCode() ){
+            $page_name="profilUser";
+        }
+        return $this->render('utilisateur/profil.html.twig', ['utilisateur' => $utilisateur,"page_name" => $page_name]);
     }
 
 }

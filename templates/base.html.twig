@@ -22,9 +22,9 @@
             <p>Annuaire</p>
         </div>
         <div id="navigation">
-            <a href="{{ path('listeUtilisateurs') }}"> Liste des Profils </a>
+            <a href="{{ path('listeUtilisateurs') }}" {% if page_name is not null and page_name is same as "userList" %}class="underlined" {% endif %}> Liste des Profils </a>
             {% if is_granted('ROLE_USER') %}
-                <a href="{{ path('profil', { code: app.user.code}) }}" > Mon profil</a>
+                <a href="{{ path('profil', { code: app.user.code}) }}" {% if page_name is not null and page_name is same as "profilUser" %}class="underlined" {% endif %} > Mon profil</a>
             {% endif %}
         </div>
 

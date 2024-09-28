@@ -1,17 +1,19 @@
 {% extends 'base.html.twig' %}
 {% block title %} Modification du profil {% endblock %}
+{% block js %} <script defer type="text/javascript" src="{{ asset("js/checkCode.js") }}"></script> {% endblock %}
 {% block body %}
     <main>
         {{ app.user.login }}
         <div class="form-edition">
-            {{ form_start(form) }}
+            {{ form_start(form, {'attr': {'class': 'utilisateur-form'}}) }}
 
             <fieldset>
                 <legend>Modification</legend>
 
                 <div class="form-input">
                     {{ form_label(form.code) }}
-                    {{ form_widget(form.code, {value: app.user.code}) }}
+                    {{ form_widget(form.code, {value: app.user.code, 'attr': {'class': 'utilisateur-code'}}) }}
+                    <span id="code-status"></span>
                 </div>
 
                 <div class="form-input">

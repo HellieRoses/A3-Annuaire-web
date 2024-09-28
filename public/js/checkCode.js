@@ -13,9 +13,10 @@ function changeStatus(texte, erreur) {
     }
 }
 
-function verifierCodeValidite(code) {
+function verifierCodeValide(code) {
     const regex = /^[a-zA-Z0-9]+$/;
-    fetch(`check/code/${code}`)
+    const URL = Routing.generate("checkCode", {"code": code})
+    fetch(URL)
         .then(response => response.json())
         .then(data => {
             if (code.length < 8) {
@@ -39,12 +40,12 @@ function verifierCodeValidite(code) {
         });
 }
 
-document.getElementById('inscription_utilisateur_code').addEventListener('input', function (input) {
+document.getElementsByClassName('utilisateur-code')[0].addEventListener('input', function (input) {
     clearTimeout(timeoutId);
     const code = input.target.value;
     if (code !== "") {
         timeoutId = setTimeout(function () {
-            verifierCodeValidite(code);
+            verifierCodeValide(code);
         }, 300);
     }
     else {
@@ -53,8 +54,7 @@ document.getElementById('inscription_utilisateur_code').addEventListener('input'
     }
 });
 
-document.getElementById('form-inscription').addEventListener('submit', function (submit) {
-    console.log(canSubmit)
+document.getElementsByClassName("utilisateur-form")[0].addEventListener('submit', function (submit) {
     if (!canSubmit) {
         submit.preventDefault();
         alert("Le code n'est pas valide.");

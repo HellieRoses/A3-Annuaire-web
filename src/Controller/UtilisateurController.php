@@ -126,10 +126,16 @@ class UtilisateurController extends AbstractController
         }
     }
 
-    #[Route('/check/code/{code}', name: 'checkCode')]
+    #[Route('/check/code/{code}', name: 'checkCode', options: ["expose" => true])]
     public function checkCode(string $code, UtilisateurRepository $repository): JsonResponse
     {
         $utilisateur = $repository->findOneBy(['code' => $code]);
-        return new JsonResponse(['codeLibre' => $utilisateur === null], 200, ['Content-Type' => 'application/json']);
+
+        if ($this->getUser() != null && $this->getUser()->getCode() == $code) {
+            return new JsonResponse(['codeLibre' => true], 200, ['Content-Type' => 'application/json']);
+        }
+        else {
+            return new JsonResponse(['codeLibre' => $utilisateur === null], 200, ['Content-Type' => 'application/json']);
+        }
     }
 }

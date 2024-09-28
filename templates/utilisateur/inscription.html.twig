@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block title %} Inscription {% endblock %}
-{% block js %} {{ asset("js/checkCode.js") }} {% endblock %}
+{% block js %} <script defer type="text/javascript" src="{{ asset("js/checkCode.js") }}"></script> {% endblock %}
 {% block body %}
 <main>
     <div class="form-inscription">
-        {{ form_start(form, {'attr': {'id': 'form-inscription'}}) }}
+        {{ form_start(form, {'attr': {'class': 'utilisateur-form'}}) }}
 
         <fieldset>
             <legend>Inscription</legend>
@@ -26,7 +26,7 @@
 
             <div class="form-input">
                 {{ form_label(form.code) }}
-                {{ form_widget(form.code) }}
+                {{ form_widget(form.code, {'attr': {'class': 'utilisateur-code'}}) }}
                 <span id="code-status"></span>
             </div>
 

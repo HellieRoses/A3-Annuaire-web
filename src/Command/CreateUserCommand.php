@@ -112,7 +112,7 @@ class CreateUserCommand extends Command
         $input->setOption('login', $login);
 
         while (!$this->createUserHelper->verifyPassword($password)) {
-            $io->note('The Password must be provided and ...');
+            $io->note('The Password must be provided and have at least a capital letter,a lowercase letter and a number');
 
             $password = $io->askHidden('What is the password?');
 
@@ -120,7 +120,7 @@ class CreateUserCommand extends Command
         $input->setOption('password', $password);
 
         while (!$this->createUserHelper->verifyEmail($email)){
-            $io->note("The email must be provided and not be already taken");
+            $io->note("The email must be provided, not be already taken and valid");
 
             $email = $io->ask('What is the email?');
         }

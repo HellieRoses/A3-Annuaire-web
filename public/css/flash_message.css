@@ -1,7 +1,13 @@
 #flashes-container {
+    width: 100%;
+    position: absolute;
+    top: 40px;
+    left: 31%;
     z-index: 1000;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin: auto;
     max-width: 700px;
     animation:flashes-animation 5s 1;
@@ -10,9 +16,17 @@
     animation-delay:3s;
     -webkit-animation-delay:1s;
     -webkit-animation-fill-mode: forwards;
+    &  img{
+        width: 30px;
+        height: 30px;
+        margin-right: 7px;
+    }
 }
 
 .flashes {
+    display: flex;
+    align-items: center;
+    width: fit-content;
     font-weight: bold;
     font-size: 20px;
     padding: 20px 40px;
@@ -20,18 +34,18 @@
 }
 
 @-webkit-keyframes flashes-animation {
-    0%   {opacity: 1;position: inherit;}
-    50% {opacity: 1;position: inherit;}
-    90% {opacity: 0;position: inherit;}
-    100% {opacity: 0;position: absolute;}
+    0%   {opacity: 1}
+    50% {opacity: 1}
+    90% {opacity: 0}
+    100% {opacity: 0}
 }
 
 .flashes-error {
-    background-color: orangered;
-    border: 2px solid mediumvioletred;
+    background-color: #fb4646;
+    border-radius: 6px;
 }
 
 .flashes-success {
-    background-color: lightgreen;
-    border: 2px solid #344c32;
+    background-color: #3eed7b;
+    border-radius: 6px;
 }

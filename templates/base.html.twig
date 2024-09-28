@@ -15,6 +15,7 @@
     {% endblock %}
 </head>
 <header>
+
     <nav>
         <div id="iconAnnuaire">
             <img src="{{ asset('img/annuaire_icon.png') }}" alt="A"/>
@@ -40,21 +41,22 @@
         </div>
         {% endif %}
     </nav>
+
+
 </header>
+<div id="flashes-container">
+    {% for flashMsg in app.flashes("success") %}
+
+        <span class="flashes flashes-success">  <img src="{{ asset('img/verif.png') }}"/> {{ flashMsg }}</span>
+    {% endfor %}
+    {% for flashMsg in app.flashes("error") %}
+
+        <span class="flashes flashes-error"> <img src="{{ asset('img/croix.png') }}"/> {{ flashMsg }}</span>
+    {% endfor %}
+</div>
 <body>
 {% block body %}{% endblock %}
 </body>
-<div id="flashes-container">
-    {% for flashMsg in app.flashes("success") %}
-        <span class="flashes flashes-success">{{ flashMsg }}</span>
 
-    {% endfor %}
-
-    {% for flashMsg in app.flashes("error") %}
-        <span class="flashes flashes-error">{{ flashMsg }}</span>
-
-    {% endfor %}
-
-</div>
 </html>
 

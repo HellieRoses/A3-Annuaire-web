@@ -8,8 +8,8 @@
         {% else %}
             <p style="color: red">masqué</p>
         {% endif %}
-        <p>Dernière connexion: {{ utilisateur.lastConnexion }}</p>
-        <p>Dernière modification du profil: {{ utilisateur.lastModification }}</p>
+        <p>Dernière connexion: {{ utilisateur.lastConnexion|date }}</p>
+        <p>Dernière modification du profil: {{ utilisateur.lastModification|date }}</p>
         <p>Login: {{ utilisateur.login }}</p>
         <p>Email: {{ utilisateur.email }}</p>
         <p>Prénom: {{ utilisateur.firstName }}</p>
@@ -18,5 +18,10 @@
         <p>Nationalité: <img src="https://flagsapi.com/{{ utilisateur.nationality }}/flat/32.png" alt="drapeau nationalité" style="vertical-align: middle;"></p>
         <p>LinkedIn: <a href="{{ utilisateur.linkedin }}" target="_blank">{{ utilisateur.linkedin }}</a></p>
         <p>Profession: {{ utilisateur.profession }}</p>
+        {% if is_granted('UTILISATEUR_DELETE', utilisateur) %}
+            <form method="POST" action="{{ path("supprimerUtilisateur",{"code":utilisateur.code}) }}">
+                <button class="delete-feedy" type="submit">Supprimer</button>
+            </form>
+        {% endif %}
     </main>
 {% endblock %}

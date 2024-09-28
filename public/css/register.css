@@ -3,7 +3,7 @@ body{
     overflow-y: hidden;
 }
 
-#main_register{
+main{
     display: flex;
     justify-content: center;
     align-items: center;

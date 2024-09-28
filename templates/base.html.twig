@@ -11,7 +11,7 @@
     {% block stylesheets %}
     {% endblock %}
     {% block javascripts %}
-        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {# {% block importmap %}{{ importmap('app') }}{% endblock %}#}
     {% endblock %}
 </head>
 <header>
@@ -24,7 +24,7 @@
         <div id="navigation">
             <a href="{{ path('listeUtilisateurs') }}"> Liste des Profils </a>
             {% if is_granted('ROLE_USER') %}
-                <a href="" > Mon profil</a>
+                <a href="{{ path('profil', { code: app.user.code}) }}" > Mon profil</a>
             {% endif %}
         </div>
 

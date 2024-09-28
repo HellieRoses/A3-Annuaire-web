@@ -46,10 +46,6 @@ nav {
             border-radius: 7px;
             background-color: #ffe1a6;
         }
-
-        & a:hover, form:hover {
-            /*TODO highlight*/
-        }
     }
 
     & .underlined{

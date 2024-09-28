@@ -8,7 +8,9 @@
     <main>
     <div id="listUser">
     {% for user in users %}
+        <a href="{{ path("profil", {code : user.code}) }}">
         {{ include('/utilisateur/utilisateur.html.twig', {'user' : user}) }}
+        </a>
     {% endfor %}
     </div>
     </main>

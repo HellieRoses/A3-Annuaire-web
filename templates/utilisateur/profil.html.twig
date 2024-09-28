@@ -13,7 +13,7 @@
                 {% else %}
                     <p style="color: red">masqué</p>
                 {% endif %}
-                {% if app.user.code is same as utilisateur.code %}
+                {% if app.user is not null and app.user.code is same as utilisateur.code %}
                     <a href="{{ path('editionProfil') }}"><img src="{{ asset('img/edit.png') }}" alt="edit"/></a>
                 {% endif %}
             </div>

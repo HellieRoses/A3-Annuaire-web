@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_LOGIN', fields: ['login'])]
@@ -28,6 +28,8 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    #[Assert\NotBlank]
+    #[Assert\NotNull]
     private ?string $login = null;
 
     /**
@@ -43,13 +45,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\NotNull]
+    #[Assert\Email(message: "Email non valide")]
     private ?string $email = null;
 
     #[ORM\Column]
     private ?bool $visible = null;
 
     #[ORM\Column(length: 255)]
-    #[Length(exactly: 8,exactMessage: 'Le code doit être de 8 caractères alphanumériques')]
+    #[Assert\NotBlank]
+    #[Assert\NotNull]
+    #[Assert\Length(exactly: 8,exactMessage: 'Le code doit être de 8 caractères alphanumériques')]
     private ?string $code = null;
 
 

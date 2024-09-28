@@ -35,6 +35,11 @@ class InscriptionUtilisateurType extends AbstractType
                     new NotNull(),
                     new Regex('#^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,30}$#','Le mot de passe doit contenir au moins une minuscule, une majuscule et un chiffre')
                 ],
+                "attr"=>[
+                    'minLength' => 8,
+                    'maxLength' => 30,
+                    "pattern" => "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d\w\W]{8,30}$",
+                ],
                 "help"=>"Le mot de passe doit contenir au moins une minuscule, une majuscule et un chiffre"
             ])
             ->add('code',TextType::class,[
@@ -42,7 +47,11 @@ class InscriptionUtilisateurType extends AbstractType
                 'mapped' => false,
                 "constraints"=>[
                     new Length(exactly: 8,exactMessage: 'Le code doit avoir {{ limit }} caractères')
-                ]
+                ],
+                "attr"=>[
+                    'length' => 8,
+                ],
+                "help"=> "Le code doit être de 8 caractères alphanumériques. Laissez vide pour une génération aléatoire du code"
             ])
             ->add('visible',CheckboxType::class,[
                 'label' => 'Profil visible ?',

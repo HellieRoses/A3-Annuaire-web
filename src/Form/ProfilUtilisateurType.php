@@ -30,7 +30,11 @@ class ProfilUtilisateurType extends AbstractType
                 'required' => false,
                 "constraints"=>[
                     new Length(exactly: 8,exactMessage: 'Le code doit avoir {{ limit }} caractères')
-                ]
+                ],
+                "attr"=>[
+                    'length' => 8,
+                ],
+                "help"=> "Le code doit être de 8 caractères alphanumériques. Laissez vide pour une génération aléatoire du code"
             ])
             ->add('name', TextType::class,[
                 "label" => "Nom",
@@ -45,6 +49,10 @@ class ProfilUtilisateurType extends AbstractType
                 "required" => false,
                 "constraints"=>[
                     new Regex('/^[0-9]{10}+$/', "Le numéro de téléphone n'est pas du bon format")
+                ],
+                "attr"=>[
+                    'length' => 10,
+                    "pattern" => "//^[0-9]{10}+$//",
                 ]
             ])
             ->add('nationality', CountryType::class,[

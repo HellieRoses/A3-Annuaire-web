@@ -157,8 +157,11 @@ class CreateUserCommand extends Command
             $io->note("The phone must be 10 digits numbers");
             $phone=$io->ask('What is the phone number of the new user? (This value is optional)');
             if (is_null($phone)){
-                $phone="";
+                $phone="null";
             }
+        }
+        if ($phone=="null"){
+            $phone=null;
         }
         $input->setOption('phone', $phone);
 

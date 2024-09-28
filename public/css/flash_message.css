@@ -20,7 +20,6 @@
 }
 
 .flashes {
-    position: fixed;
     display: flex;
     align-items: center;
     width: fit-content;
@@ -28,6 +27,7 @@
     font-size: 20px;
     padding: 20px 40px;
     margin: 10px 0;
+    scroll-behavior: revert;
 }
 
 @-webkit-keyframes flashes-animation {

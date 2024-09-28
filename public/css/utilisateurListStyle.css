@@ -11,6 +11,11 @@
 
 }
 
+main{
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
 .utilisateur_presentation {
     border: 1px black;
     border-radius: 10px;

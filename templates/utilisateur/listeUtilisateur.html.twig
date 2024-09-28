@@ -1,7 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block title %} Liste Utilisateur {% endblock %}
+{% block javascripts %}
+{% endblock %}
 {% block body %}
+    <main>
+    <div id="listUser">
     {% for user in users %}
         {{ include('/utilisateur/utilisateur.html.twig', {'user' : user}) }}
     {% endfor %}
+    </div>
+    </main>
 {% endblock %}

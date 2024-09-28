@@ -1,0 +1,148 @@
+body {
+    background-color: #fff9f0;
+    margin: 0;
+}
+
+p, button {
+    font-family: "";
+}
+
+main{
+    margin-top: 5%;
+}
+
+nav {
+    position: fixed;
+    width: 100%;
+    top:0;
+    left: 0;
+    z-index: 1;
+    background-color: #ce75cd;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: medium;
+
+    & div {
+        align-items: center;
+        margin: 5px;
+        & a:first-child {
+            margin-right: 5px;
+        }
+    }
+
+    & div:nth-child(3) {
+        & a, form {
+            padding: 6px;
+            border-radius: 7px;
+            background-color: #ffe1a6;
+        }
+
+        & a:hover, form:hover {
+            /*TODO highlight*/
+        }
+    }
+
+    & .underlined{
+        text-decoration: underline;
+        text-underline-offset: 10px;
+        color: #cccccc;
+    }
+}
+
+form, form button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+button {
+    font-size: medium;
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+nav #iconAnnuaire {
+    display: flex;
+
+    & img {
+        width: 35px;
+        height: 35px;
+        margin-right: 5px;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+/* List user */
+#listUser{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 5%;
+    row-gap: 10%;
+    margin: 3em 2em 0;
+    & > .utilisateur_presentation:nth-child(2n + 0){
+        background-color: #9ebaf0;
+    }
+    & > .utilisateur_presentation:nth-child(2n + 1){
+        background-color: #96EAEA;
+    }
+}
+
+.utilisateur_presentation {
+    background-color: white;
+    border: 1px black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: space-between;
+    & > div{
+        display: flex;
+        & >p:first-child{
+            margin-right:  5px;
+        }
+    }
+    & > div:not(:first-child){
+        margin-left: 15px;
+    }
+    & div{
+        align-items: center;
+    }
+    & div:first-child{
+        & p{
+            font-size: large;
+            font-weight: bold ;
+        }
+    }
+}
+
+
+.flag{
+    width: 40px;
+    height: auto;
+}
+#linkedin > img{
+    width: 50px;
+    height: 50px;
+}
+
+.infos_annexe_user:not(#linkedin) img{
+    width: 40px;
+    height: 40px;
+    margin-left: 5px;
+    margin-right: 5px;
+
+}
+
+.nr{
+    font-style: italic;
+}

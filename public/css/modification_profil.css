@@ -7,7 +7,7 @@ main {
 }
 
 body{
-    height: 70vh;
+    height: 87vh;
     overflow-y: hidden;
 }
 legend{
@@ -17,10 +17,7 @@ legend{
     border-radius: 6px;
     width: fit-content;
 }
-.form-edition{
 
-    width: 50%;
-}
 
 fieldset{
     & > div:first-child{
@@ -65,4 +62,14 @@ form:not(#deconnexion) button{
     border-radius: 7px;
     background-color: #ffc3a6;
     margin-top: 10px;
+}
+@media screen and (max-width: 500px) {
+    body{
+        height: auto;
+        overflow-y: scroll;
+    }
+    fieldset{
+        width: 80%;
+    }
+
 }

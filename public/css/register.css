@@ -85,3 +85,28 @@ button{
     background-color: #ffc3a6;
     margin-top: 10px;
 }
+
+/* Responsive */
+@media screen and (max-width: 730px) {
+    body{
+        overflow-y: scroll;
+        height: auto;
+    }
+    main{
+        flex-direction: column-reverse;
+        & > div{
+            width: 99%;
+            & > *{
+                max-width: 80%;
+            }
+        }
+        & > div:first-child{
+
+            border-right: none;
+        }
+        & > div:nth-child(2){
+            border-bottom: black 1px solid;
+            margin-bottom: 10px;
+        }
+    }
+}

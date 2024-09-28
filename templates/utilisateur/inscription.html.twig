@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block title %} Inscription {% endblock %}
+{% block js %} {{ asset("js/checkCode.js") }} {% endblock %}
 {% block body %}
 <main>
     <div class="form-inscription">
-        {{ form_start(form) }}
+        {{ form_start(form, {'attr': {'id': 'form-inscription'}}) }}
 
         <fieldset>
             <legend>Inscription</legend>
@@ -26,6 +27,7 @@
             <div class="form-input">
                 {{ form_label(form.code) }}
                 {{ form_widget(form.code) }}
+                <span id="code-status"></span>
             </div>
 
             <div class="form-input">

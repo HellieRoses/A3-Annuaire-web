@@ -125,4 +125,11 @@ class UtilisateurController extends AbstractController
             return new JsonResponse(null, Response::HTTP_NOT_FOUND);
         }
     }
+
+    #[Route('/check/code/{code}', name: 'checkCode')]
+    public function checkCode(string $code, UtilisateurRepository $repository): JsonResponse
+    {
+        $utilisateur = $repository->findOneBy(['code' => $code]);
+        return new JsonResponse(['codeLibre' => $utilisateur === null], 200, ['Content-Type' => 'application/json']);
+    }
 }

@@ -96,6 +96,7 @@ class UtilisateurController extends AbstractController
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             $this->addFlash('success', 'Profil modifié');
+            return $this->redirectToRoute("profil",["code"=>$user->getCode()]);
         }
 
         $this->messageFlashManager->addFormErrorsAsFlash($form);

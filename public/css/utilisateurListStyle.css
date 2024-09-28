@@ -19,6 +19,7 @@
     padding: 10px;
     justify-content: space-between;
     & > div{
+        width: fit-content;
         display: flex;
         & >p:first-child{
             margin-right:  5px;
@@ -50,6 +51,9 @@
     & a:nth-child(2n + 1) .utilisateur_presentation{
         background-color: #96EAEA;
     }
+    & a .utilisateur_presentation{
+        min-height: 300px;
+    }
     & a .utilisateur_presentation:hover{
         transition: transform .5s ease-in-out;
         transform: scale(1.05);
@@ -61,6 +65,7 @@
 @media screen and (max-width: 1000px) {
     #listUser{
         grid-template-columns: 1fr 1fr;
+        row-gap: 2%;
     }
 }
 

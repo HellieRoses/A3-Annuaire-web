@@ -111,7 +111,7 @@ fieldset {
     border: none;
 }
 
-button:hover {
+button:hover{
     cursor: pointer;
 }
 
@@ -126,7 +126,7 @@ nav > div:nth-child(2){
         flex-direction: column;
         justify-content: flex-end;
         align-items: flex-end;
-
+        z-index: 6;
         position: absolute;
         top: 50px;
         right: 0;
@@ -143,6 +143,9 @@ nav > div:nth-child(2){
                 text-align: justify;
                 margin-right: 7px;
                 margin-bottom: 2px;
+            }
+            & > p:hover,a:hover{
+                cursor: pointer;
             }
         }
         & div:first-child{

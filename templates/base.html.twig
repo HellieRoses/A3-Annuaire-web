@@ -13,7 +13,7 @@
     {% block stylesheets %}
     {% endblock %}
     {% block javascripts %}
-    {# {% block importmap %}{{ importmap('app') }}{% endblock %}#}
+        {# {% block importmap %}{{ importmap('app') }}{% endblock %}#}
     {% endblock %}
     {% block js %} {% endblock %}
 </head>
@@ -33,53 +33,20 @@
 
         {% if not is_granted('ROLE_USER') %}
             <div class="connexion">
-            <a href="{{ path('register') }}">Inscription</a>
-            <a href="{{ path("register") }}">Connexion</a>
+                <a href="{{ path('register') }}">Inscription</a>
+                <a href="{{ path("register") }}">Connexion</a>
             </div>
         {% else %}
-        <div class="connexion">
-            <form id="deconnexion" method="post" action="{{ path("_logout_main") }}">
-                <button>Déconnexion</button>
-            </form>
-        </div>
+            <div class="connexion">
+                <form id="deconnexion" method="post" action="{{ path("_logout_main") }}">
+                    <button>Déconnexion</button>
+                </form>
+            </div>
         {% endif %}
     </nav>
 
 
 </header>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css') }}"/>
-        <script defer src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
-        <script defer src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-        {% block stylesheets %}
-        {% endblock %}
-
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-        {% block js %} {% endblock %}
-    </head>
-    <header>
-        <div style="color: darkmagenta">
-            <nav>
-                {% if not is_granted('ROLE_USER') %}
-                <a href="{{ path('inscription') }}">Inscription</a>
-                <a href="{{ path("connexion") }}">Connexion</a>
-                {% else %}
-                    <form method="post" action="{{ path("_logout_main") }}">
-                        <button>Déconnexion</button>
-                    </form>
-                {% endif %}
-            </nav>
-        </div>
-    </header>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
 <div id="flashes-container">
     {% for flashMsg in app.flashes("success") %}
 
@@ -95,4 +62,5 @@
 </body>
 
 </html>
+
 

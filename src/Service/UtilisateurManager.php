@@ -26,7 +26,6 @@ class UtilisateurManager implements UtilisateurManagerInterface
     private function generateCode(Utilisateur $utilisateur, ?string $code): void
     {
         $length=8;
-        $alphaNum="";
         if ($code === null) {
             do {
                 $octetsAleatoires = random_bytes(ceil($length * 6 / 8));

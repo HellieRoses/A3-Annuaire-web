@@ -144,7 +144,6 @@ class UtilisateurController extends AbstractController
             $session->invalidate();
             $this->redirectToRoute("_logout_main");
         }
-        dump($this->getUser());
         $this->denyAccessUnlessGranted('UTILISATEUR_DELETE', $utilisateur);
         $this->entityManager->remove($utilisateur);
         $this->entityManager->flush();
@@ -153,7 +152,7 @@ class UtilisateurController extends AbstractController
     }
 
 
-    #[Route('/profil/utilisateur/{code}/json', name:'profilFormatJSON', methods: ['GET'])]
+    #[Route('/profil/utilisateur/{code}/json', name: 'profilFormatJSON', methods: ['GET'])]
     public function profilFormatJSON(?Utilisateur $utilisateur, SerializerInterface $serializer):Response
     {
         if ($utilisateur !== null) {

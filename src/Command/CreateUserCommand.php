@@ -38,7 +38,13 @@ class CreateUserCommand extends Command
             ->addOption('email', null,InputOption::VALUE_REQUIRED, 'The email of the new user')
             ->addOption('code', null,InputOption::VALUE_OPTIONAL, 'The code of the new user')
             ->addOption('visible',null, InputOption::VALUE_NEGATABLE, 'Is the new user visible')
-            ->addOption('admin', null,InputOption::VALUE_NEGATABLE, 'Give the new user the admin rights');
+            ->addOption('admin', null,InputOption::VALUE_NEGATABLE, 'Give the new user the admin rights')
+            ->addOption("name",null,InputOption::VALUE_REQUIRED, 'The name of the new user')
+            ->addOption("first_name",null,InputOption::VALUE_REQUIRED, 'The first name of the new user')
+            ->addOption("phone",null,InputOption::VALUE_REQUIRED, 'The phone of the new user')
+            ->addOption("nationality",null,InputOption::VALUE_REQUIRED, 'The natiionality of the new user')
+            ->addOption("linkedIn",null,InputOption::VALUE_REQUIRED, 'The linkedIn link to new user')
+            ->addOption("profession",null,InputOption::VALUE_REQUIRED, 'The profession of the new user');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -50,11 +56,23 @@ class CreateUserCommand extends Command
         $email = $input->getOption('email');
         $code = $input->getOption('code');
         $visible = $input->getOption('visible');
+        $name = $input->getOption('name');
+        $first_name = $input->getOption('first_name');
+        $phone = $input->getOption('phone');
+        $nationality = $input->getOption('nationality');
+        $linkedIn = $input->getOption('linkedIn');
+        $profession = $input->getOption('profession');
 
         $user = new Utilisateur();
         $user->setLogin($login);
         $user->setEmail($email);
         $user->setVisible($visible);
+        $user->setName($name);
+        $user->setFirstName($first_name);
+        $user->setPhone($phone);
+        $user->setNationality($nationality);
+        $user->setLinkedIn($linkedIn);
+        $user->setProfession($profession);
         $this->utilisateurManager->createUser($user, $password, $code);
 
         if ($input->getOption('admin')) {
@@ -79,6 +97,12 @@ class CreateUserCommand extends Command
         $code = $input->getOption('code');
         $visible = $input->getOption('visible');
         $admin = $input->getOption('admin');
+        $name = $input->getOption('name');
+        $first_name = $input->getOption('first_name');
+        $phone = $input->getOption('phone');
+        $nationality = $input->getOption('nationality');
+        $linkedIn = $input->getOption('linkedIn');
+        $profession = $input->getOption('profession');
 
         while (!$this->createUserHelper->verifyLogin($login)) {
             $io->note('The login must be provided and not be already taken');
@@ -120,6 +144,35 @@ class CreateUserCommand extends Command
         if (is_null($admin)) {
             $admin=$io->confirm('Is the user admin? (press <return> to make it admin)',false);
             $input->setOption('admin', $admin);
+        }
+        if (is_null($name)) {
+            $name=$io->ask('What is the name of the new user? (This value is optional)');
+            $input->setOption('name', $name);
+        }
+        if (is_null($first_name)) {
+            $first_name=$io->ask('What is the first name of the new user? (This value is optional)');
+            $input->setOption('first_name', $first_name);
+        }
+        while (!$this->createUserHelper->verifyPhone($phone)) {
+            $io->note("The phone must be 10 digits numbers");
+            $phone=$io->ask('What is the phone number of the new user? (This value is optional)');
+            if (is_null($phone)){
+                $phone="";
+            }
+        }
+        $input->setOption('phone', $phone);
+
+        if (is_null($nationality)) {
+            $nationality=$io->ask('What is the nationality of the new user? (This value is optional)');
+            $input->setOption('nationality', $nationality);
+        }
+        if (is_null($linkedIn)) {
+            $linkedIn=$io->ask('What is the linkedIn link to the new user? (This value is optional)');
+            $input->setOption('linkedIn', $linkedIn);
+        }
+        if (is_null($profession)) {
+            $profession=$io->ask('What is the profession of the new user? (This value is optional)');
+            $input->setOption('profession', $profession);
         }
     }
 }

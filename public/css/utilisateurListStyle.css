@@ -1,0 +1,54 @@
+#linkedin > img{
+    width: 50px;
+    height: 50px;
+}
+
+.infos_annexe_user:not(#linkedin) img{
+    width: 40px;
+    height: 40px;
+    margin-left: 5px;
+    margin-right: 5px;
+
+}
+
+.utilisateur_presentation {
+    background-color: white;
+    border: 1px black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: space-between;
+    & > div{
+        display: flex;
+        & >p:first-child{
+            margin-right:  5px;
+        }
+    }
+    & > div:not(:first-child){
+        margin-left: 15px;
+    }
+    & div{
+        align-items: center;
+    }
+    & div:first-child{
+        & p{
+            font-size: large;
+            font-weight: bold ;
+        }
+    }
+}
+
+#listUser{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 5%;
+    row-gap: 10%;
+    margin: 3em 2em 0;
+    & > .utilisateur_presentation:nth-child(2n + 0){
+        background-color: #9ebaf0;
+    }
+    & > .utilisateur_presentation:nth-child(2n + 1){
+        background-color: #96EAEA;
+    }
+}

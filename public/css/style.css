@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 html{
     scroll-behavior: smooth;
 }
@@ -10,13 +11,13 @@ body {
     overflow-y: scroll;
 }
 
-p, button {
-    font-family: "";
+p, button, select, input, a, label {
+    font-family: "Montserrat";
 }
 
 main{
     z-index: 0;
-    margin-top: 5%;
+    margin-top: 80px;
 }
 
 nav {
@@ -100,3 +101,5 @@ a {
 fieldset{
     border: none;
 }
+
+/* Responsive*/

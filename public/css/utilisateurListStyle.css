@@ -56,3 +56,18 @@
         filter: brightness(115%);
     }
 }
+
+/*Responsive*/
+@media screen and (max-width: 1000px) {
+    #listUser{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    #listUser{
+        grid-template-columns: 1fr ;
+        row-gap: 2%;
+    }
+
+}

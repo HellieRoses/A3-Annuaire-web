@@ -2,11 +2,17 @@
 
 ## Lien du dépot Git
 
-
+https://gitlabinfo.iutmontp.univ-montp2.fr/boissezonm/annuaire_web_project
 
 ## Utilisatton de l'application
 
+### Les routes
 
+- La route **/** permet d'accéder à la page principale du site, elle permet à l'utilisateur, connecté ou non, de voir la liste des utilisateurs inscrits qui sont visibles
+- La route **/register** permet d'accéder aux formulaires d'inscription et de connexion
+- La route **/profil/edition** permet d'accéder au formulaire d'édition pour modifier les informations à afficher de l'utilisateur connecté
+- La route **/profil/utilisateur/{code}** permet de regarder les informations d'un utilisateur
+- La route **/profil/utilisateur/{code}/json** permet de renvoyer les informations d'un utilisateur au format json
 
 ## Commande pour la création d'utilisateur
 
@@ -44,6 +50,9 @@ Toutes les options qui ne seront pas renseigné dans l'éxécution de la command
 
 ## Investissement du groupe
 
+- Clément HAMEL : Informations d'un utilisateur en JSON, Vue du profil d'un utilisateur, JavaScript
+- Maëlys BOISSEZON : Connexion, deconnexion, liste des utilisateurs, édition de profil, CSS, dates d'édition et de connexion, classe Utilisateur 
+- Romain TOUZÉ : Suppression Profil, Mode maintenance, Inscription, Commande Symfony, Role Admin, Initialisation du projet
 
 ## Indications supplémentaires
 

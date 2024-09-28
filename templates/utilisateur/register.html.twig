@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %} Liste Utilisateur {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/register.css') }}"/>
+{% endblock %}
+{% block body %}
+    <main>
+    <div id="inscription">
+    {{ include('/utilisateur/inscription.html.twig', {'form' : form}) }}
+    </div>
+    <div id="connexion">
+        {{ include('/utilisateur/connexion.html.twig', {'last_login' : last_login}) }}
+    </div>
+    </main>
+{% endblock %}

@@ -53,6 +53,10 @@ class CreateUserHelper implements CreateUserHelperInterface
         if (strlen($email) > 250) {
             return false;
         }
+        $user=$this->utilisateurRepository->findOneBy(['email' => $email]);
+        if (!is_null($user)) {
+            return false;
+        }
 
         return true;
     }
@@ -71,6 +75,24 @@ class CreateUserHelper implements CreateUserHelperInterface
         $pattern = "/^[a-zA-Z0-9]+$/";
         if (!preg_match($pattern, $code)) {
             return false;
+        }
+        $user=$this->utilisateurRepository->findOneBy(['code' => $code]);
+        if (!is_null($user)) {
+            return false;
+        }
+        return true;
+    }
+
+    public function verifyPhone(?string $phone): bool
+    {
+
+        if (is_null($phone)) {
+            return false;
+        }
+        if (!empty($phone)) {
+            if (!preg_match('/^[0-9]{10}+$/', $phone)) {
+                return false;
+            }
         }
         return true;
     }

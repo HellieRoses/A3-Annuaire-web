@@ -1,15 +1,16 @@
 {% extends 'base.html.twig' %}
 {% block title %} Modification du profil {% endblock %}
 {% block js %} <script defer type="text/javascript" src="{{ asset("js/checkCode.js") }}"></script> {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/modification_profil.css') }}"/>
+{% endblock %}
 {% block body %}
     <main>
-        {{ app.user.login }}
         <div class="form-edition">
             {{ form_start(form, {'attr': {'class': 'utilisateur-form'}}) }}
 
             <fieldset>
-                <legend>Modification</legend>
-
+                <div> <legend>Inscription</legend></div>
                 <div class="form-input">
                     {{ form_label(form.code) }}
                     {{ form_widget(form.code, {value: app.user.code, 'attr': {'class': 'utilisateur-code'}}) }}
@@ -46,7 +47,7 @@
                     {{ form_widget(form.profession , {value: app.user.profession}) }}
                 </div>
 
-                <div class="form-input">
+                <div class="form-input" id="visibleForm">
                     {{ form_label(form.visible) }}
                     {{ form_widget(form.visible, {value: app.user.visible}) }}
                 </div>

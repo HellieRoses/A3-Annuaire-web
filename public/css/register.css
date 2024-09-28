@@ -1,0 +1,87 @@
+body{
+    height: 87vh;
+    overflow-y: hidden;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    & > div{
+        width: 50%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        & > *{
+            max-width: 70%;
+        }
+        & > legend{
+            align-items: center;
+        }
+    }
+    & > div:first-child{
+        border-right: black 1px solid;
+    }
+}
+
+fieldset{
+    & > div:first-child{
+
+        display: flex;
+        justify-content: center;
+        margin-bottom: 5vh;
+    }
+    & > div:not(:first-child){
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+    & > div:not(#visibleForm) input{
+        width: 100%;
+    }
+    & > div#visibleForm{
+        flex-direction: row;
+        align-items: center;
+        & input{
+            margin-left: 15px;
+        }
+    }
+}
+
+input{
+    border-radius: 5px;
+    border: 1px #cccccc solid;
+}
+
+label{
+    font-size: large;
+}
+
+legend{
+    font-size: 30px;
+    background-color: #ffe1a6;
+    padding: 6px;
+    border-radius: 6px;
+    width: fit-content;
+}
+
+#connexion > form{
+    width: 60%;
+}
+
+input:not(input[type="checkbox"]){
+    padding: 5px;
+    font-size: medium;
+}
+
+button{
+    width: 100%;
+    padding: 6px;
+    border-radius: 7px;
+    background-color: #ffc3a6;
+    margin-top: 10px;
+}

@@ -8,6 +8,8 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/flash_message.css') }}"/>
+    <script defer src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script defer src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     {% block stylesheets %}
     {% endblock %}
 

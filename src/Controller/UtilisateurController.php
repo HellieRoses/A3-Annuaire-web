@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -113,6 +114,12 @@ class UtilisateurController extends AbstractController
             $this->addFlash("error","L'utilisateur n'existe pas");
             return $this->redirectToRoute('listeUtilisateurs');
         }
+        if ($this->getUser() == $utilisateur) {
+            $session = new Session();
+            $session->invalidate();
+            $this->redirectToRoute("_logout_main");
+        }
+        dump($this->getUser());
         $this->denyAccessUnlessGranted('UTILISATEUR_DELETE', $utilisateur);
         $this->entityManager->remove($utilisateur);
         $this->entityManager->flush();

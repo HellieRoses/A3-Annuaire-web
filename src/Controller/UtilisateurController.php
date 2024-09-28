@@ -11,6 +11,7 @@ use App\Service\MessageFlashManagerInterface;
 use App\Service\UtilisateurManagerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -27,7 +28,7 @@ class UtilisateurController extends AbstractController
     {
     }
 
-    #[Route('/inscription', name: 'inscription', methods: ['GET', 'POST'])]
+    #[Route('/inscription', name: 'inscription', methods: ['POST'])]
     public function inscription(Request $request):Response
     {
         $user = new Utilisateur();
@@ -43,21 +44,35 @@ class UtilisateurController extends AbstractController
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             $this->addFlash('success','Vous vous êtes inscrit');
-            return $this->redirectToRoute('connexion');
+            return $this->redirectToRoute('register',['form' => null,'login'=>null]);
         }
         $this->messageFlashManager->addFormErrorsAsFlash($form);
-        return $this->render('utilisateur/inscription.html.twig',
-        ['form'=>$form->createView()]);
+        return $this->redirectToRoute('register');
     }
 
-    #[Route('/connexion', name:'connexion', methods: ['GET','POST'])]
+    #[Route('/connexion', name:'connexion', methods: ['POST'])]
     public function connexion(AuthenticationUtils $authenticationUtils):Response
     {
         if($this->isGranted('ROLE_USER')){
             return $this->redirectToRoute('listeUtilisateurs');
         }
+        return $this->redirectToRoute('register');
+    }
+
+    #[Route('/register', name:"register", methods: ['GET'])]
+    public function register(Request $request,AuthenticationUtils $authenticationUtils):Response
+    {
+        if($this->isGranted('ROLE_USER')){
+            return $this->redirectToRoute('listeUtilisateurs');
+        }
+        $user = new Utilisateur();
+        $form= $this->createForm(InscriptionUtilisateurType::class, $user,options:[
+            'method'=>'POST',
+            'action'=>$this->generateUrl('inscription')
+        ]);
+        $form->handleRequest($request);
         $lastLogin = $authenticationUtils->getLastUsername();
-        return $this->render('utilisateur/connexion.html.twig',['last_login' => $lastLogin]);
+        return $this->render('utilisateur/register.html.twig', ['form' => $form, 'last_login' => $lastLogin]);
     }
 
     #[Route('/profil/edition', name:'editionProfil', methods: ['GET', 'POST'])]

@@ -21,7 +21,7 @@
             <p>Annuaire</p>
         </div>
         <div id="navigation">
-            <a href=""> Liste des Profils </a>
+            <a href="{{ path('listeUtilisateurs') }}"> Liste des Profils </a>
             {% if is_granted('ROLE_USER') %}
                 <a href="" > Mon profil</a>
             {% endif %}
@@ -29,8 +29,8 @@
 
         {% if not is_granted('ROLE_USER') %}
             <div class="connexion">
-            <a href="{{ path('inscription') }}">Inscription</a>
-            <a href="{{ path("connexion") }}">Connexion</a>
+            <a href="{{ path('register') }}">Inscription</a>
+            <a href="{{ path("register") }}">Connexion</a>
             </div>
         {% else %}
         <div class="connexion">

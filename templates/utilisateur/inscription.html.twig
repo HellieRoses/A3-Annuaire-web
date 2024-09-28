@@ -1,12 +1,14 @@
-{% extends 'base.html.twig' %}
+{# {% extends 'base.html.twig' %}
 {% block title %} Inscription {% endblock %}
 {% block body %}
-<main>
-    <div class="form-inscription">
+<main>#}
+
         {{ form_start(form) }}
 
         <fieldset>
-            <legend>Inscription</legend>
+
+           <div> <legend>Inscription</legend></div>
+
             <div class="form-input">
                 {{ form_label(form.login) }}
                 {{ form_widget(form.login) }}
@@ -28,9 +30,9 @@
                 {{ form_widget(form.code) }}
             </div>
 
-            <div class="form-input">
+            <div class="form-input" id="visibleForm">
                 {{ form_label(form.visible) }}
-                {{ form_widget(form.visible) }}
+                    {{ form_widget(form.visible) }}
             </div>
 
             {{ form_widget(form.inscription, {'label':'S\'inscrire', 'attr': {'class': 'basic-form-submit'}}) }}
@@ -38,6 +40,6 @@
         </fieldset>
         {{ form_rest(form) }}
         {{ form_end(form) }}
-    </div>
-</main>
-{% endblock %}
+
+{# </main>
+{% endblock %}#}

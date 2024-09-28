@@ -1,6 +1,11 @@
+html{
+    scroll-behavior: smooth;
+}
 body {
     background-color: #fff9f0;
     margin: 0;
+    width: 100%;
+    height: 100%;
 }
 
 p, button {
@@ -89,6 +94,10 @@ a {
 }
 
 
-.nr{
+.nr, .help-text{
     font-style: italic;
+}
+
+fieldset{
+    border: none;
 }

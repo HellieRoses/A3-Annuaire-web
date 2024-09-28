@@ -106,9 +106,13 @@ class UtilisateurController extends AbstractController
         return $this->render('utilisateur/profil.html.twig', ['utilisateur' => $utilisateur]);
     }
 
-    #[Route('/profil/delete/{code}',name: 'supprumierUtilisateur', methods: ['DELETE'])]
-    public function suppressionProfil(Utilisateur $utilisateur):Response
+    #[Route('/profil/delete/{code}',name: 'supprimerUtilisateur', methods: ['POST'])]
+    public function suppressionProfil(?Utilisateur $utilisateur):Response
     {
+        if (is_null($utilisateur)) {
+            $this->addFlash("error","L'utilisateur n'existe pas");
+            return $this->redirectToRoute('listeUtilisateurs');
+        }
         $this->denyAccessUnlessGranted('UTILISATEUR_DELETE', $utilisateur);
         $this->entityManager->remove($utilisateur);
         $this->entityManager->flush();

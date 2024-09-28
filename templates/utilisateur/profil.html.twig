@@ -19,7 +19,9 @@
         <p>LinkedIn: <a href="{{ utilisateur.linkedin }}" target="_blank">{{ utilisateur.linkedin }}</a></p>
         <p>Profession: {{ utilisateur.profession }}</p>
         {% if is_granted('UTILISATEUR_DELETE', utilisateur) %}
-            <button class="delete-feedy" data-utilisateur-id="{{ utilisateur.id }}">Supprimer</button>
+            <form method="POST" action="{{ path("supprimerUtilisateur",{"code":utilisateur.code}) }}">
+                <button class="delete-feedy" type="submit">Supprimer</button>
+            </form>
         {% endif %}
     </main>
 {% endblock %}

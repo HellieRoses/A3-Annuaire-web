@@ -30,8 +30,6 @@ final class UtilisateurVoter extends Voter
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
             case self::DELETE:
-                dump($subject);
-                dump($user);
                 if ($subject == $user || ($user->isAdmin() && !$subject->isAdmin())) {
                     return true;
                 }

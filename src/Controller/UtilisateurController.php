@@ -11,10 +11,12 @@ use App\Service\MessageFlashManagerInterface;
 use App\Service\UtilisateurManagerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class UtilisateurController extends AbstractController
 {
@@ -98,11 +100,29 @@ class UtilisateurController extends AbstractController
 
 
     #[Route('/profil/utilisateur/{code}', name:'profil', methods: ['GET'])]
-    public function profil(string $code, UtilisateurRepository $repository):Response
+    public function profil(?Utilisateur $utilisateur):Response
     {
-        $utilisateur = $repository->findOneBy(["code" => $code]);
 
-        return $this->render('utilisateur/profil.html.twig', ['utilisateur' => $utilisateur]);
+        if ($utilisateur != null) {
+            return $this->render('utilisateur/profil.html.twig', ['utilisateur' => $utilisateur]);
+        }
+        else {
+            $this->addFlash("error","L'utilisateur n'existe pas");
+            return $this->redirectToRoute("listeUtilisateurs");
+        }
     }
 
+    #[Route('/profil/utilisateur/{code}/json', name:'profilFormatJSON', methods: ['GET'])]
+    public function profilFormatJSON(?Utilisateur $utilisateur, SerializerInterface $serializer):Response
+    {
+        if ($utilisateur !== null) {
+            $utilisateurArray = $serializer->normalize($utilisateur);
+            unset($utilisateurArray["password"]);
+            $jsonUtilisateur = json_encode($utilisateurArray);
+            return new JsonResponse($jsonUtilisateur, 200, ['Content-Type' => 'application/json']);
+        }
+        else {
+            return new JsonResponse(null, Response::HTTP_NOT_FOUND);
+        }
+    }
 }

@@ -11,6 +11,7 @@ use App\Service\MessageFlashManagerInterface;
 use App\Service\UtilisateurManagerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,8 +31,8 @@ class UtilisateurController extends AbstractController
     {
     }
 
-    #[Route('/inscription', name: 'inscription', methods: ['GET', 'POST'])]
-    public function inscription(Request $request): Response
+    #[Route('/inscription', name: 'inscription', methods: ['POST'])]
+    public function inscription(Request $request):Response
     {
         $user = new Utilisateur();
         $form = $this->createForm(InscriptionUtilisateurType::class, $user, options: [
@@ -45,22 +46,36 @@ class UtilisateurController extends AbstractController
             $this->utilisateurManager->createUser($user, $password, $code);
             $this->entityManager->persist($user);
             $this->entityManager->flush();
-            $this->addFlash('success', 'Vous vous êtes inscrit');
-            return $this->redirectToRoute('connexion');
+            $this->addFlash('success','Vous vous êtes inscrit');
+            return $this->redirectToRoute('register',['form' => null,'login'=>null,"page_name" => null]);
         }
         $this->messageFlashManager->addFormErrorsAsFlash($form);
-        return $this->render('utilisateur/inscription.html.twig',
-            ['form' => $form->createView()]);
+        return $this->redirectToRoute('register');
     }
 
-    #[Route('/connexion', name: 'connexion', methods: ['GET', 'POST'])]
-    public function connexion(AuthenticationUtils $authenticationUtils): Response
+    #[Route('/connexion', name:'connexion', methods: ['POST'])]
+    public function connexion(AuthenticationUtils $authenticationUtils):Response
     {
         if ($this->isGranted('ROLE_USER')) {
             return $this->redirectToRoute('listeUtilisateurs');
         }
+        return $this->redirectToRoute('register');
+    }
+
+    #[Route('/register', name:"register", methods: ['GET'])]
+    public function register(Request $request,AuthenticationUtils $authenticationUtils):Response
+    {
+        if($this->isGranted('ROLE_USER')){
+            return $this->redirectToRoute('listeUtilisateurs');
+        }
+        $user = new Utilisateur();
+        $form= $this->createForm(InscriptionUtilisateurType::class, $user,options:[
+            'method'=>'POST',
+            'action'=>$this->generateUrl('inscription')
+        ]);
+        $form->handleRequest($request);
         $lastLogin = $authenticationUtils->getLastUsername();
-        return $this->render('utilisateur/connexion.html.twig', ['last_login' => $lastLogin]);
+        return $this->render('utilisateur/register.html.twig', ['form' => $form, 'last_login' => $lastLogin, "page_name" => null]);
     }
 
     #[Route('/profil/edition', name: 'editionProfil', methods: ['GET', 'POST'])]
@@ -84,8 +99,8 @@ class UtilisateurController extends AbstractController
         }
 
         $this->messageFlashManager->addFormErrorsAsFlash($form);
-        return $this->render('utilisateur/modification_profil.html.twig',
-            ['form' => $form->createView()]);
+        return  $this->render('utilisateur/modification_profil.html.twig',
+        ['form' => $form->createView(), "page_name" => null]);
     }
 
     #[Route('/', name: 'listeUtilisateurs', methods: ['GET'])]
@@ -96,15 +111,19 @@ class UtilisateurController extends AbstractController
         } else {
             $users = $this->utilisateurRepository->findBy(["visible" => 1]);
         }
-        return $this->render('utilisateur/listeUtilisateur.html.twig', ['users' => $users]);
+        return $this->render('utilisateur/listeUtilisateur.html.twig',['users'=>$users, 'page_name' => 'userList']);
     }
 
     #[Route('/profil/utilisateur/{code}', name:'profil', methods: ['GET'])]
     public function profil(?Utilisateur $utilisateur):Response
     {
-
+        $page_name = null;
         if ($utilisateur != null) {
-            return $this->render('utilisateur/profil.html.twig', ['utilisateur' => $utilisateur]);
+            $page_name = null;
+            if($code=== $this->getUser()->getCode() ){
+                $page_name="profilUser";
+            }
+            return $this->render('utilisateur/profil.html.twig', ['utilisateur' => $utilisateur,"page_name" => $page_name]);
         }
         else {
             $this->addFlash("error","L'utilisateur n'existe pas");

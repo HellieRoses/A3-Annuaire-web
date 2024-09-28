@@ -1,27 +1,51 @@
 {% extends 'base.html.twig' %}
 {% block title %} Profil {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/profil.css') }}"/>
+{% endblock %}
 {% block body %}
     <main>
-        <h2>Profil de {{ utilisateur.login }}</h2>
-        {% if utilisateur.visible %}
-            <p style="color: green">visible</p>
-        {% else %}
-            <p style="color: red">masqué</p>
-        {% endif %}
-        <p>Dernière connexion: {{ utilisateur.lastConnexion|date }}</p>
-        <p>Dernière modification du profil: {{ utilisateur.lastModification|date }}</p>
-        <p>Login: {{ utilisateur.login }}</p>
-        <p>Email: {{ utilisateur.email }}</p>
-        <p>Prénom: {{ utilisateur.firstName }}</p>
-        <p>Nom: {{ utilisateur.name }}</p>
-        <p>Numéro de téléphone: {{ utilisateur.phone }}</p>
-        <p>Nationalité: <img src="https://flagsapi.com/{{ utilisateur.nationality }}/flat/32.png" alt="drapeau nationalité" style="vertical-align: middle;"></p>
-        <p>LinkedIn: <a href="{{ utilisateur.linkedin }}" target="_blank">{{ utilisateur.linkedin }}</a></p>
-        <p>Profession: {{ utilisateur.profession }}</p>
-        {% if is_granted('UTILISATEUR_DELETE', utilisateur) %}
-            <form method="POST" action="{{ path("supprimerUtilisateur",{"code":utilisateur.code}) }}">
-                <button class="delete-feedy" type="submit">Supprimer</button>
-            </form>
-        {% endif %}
+        <div>
+            <div>
+                <h2>Profil de {{ utilisateur.login }} -</h2>
+                {% if utilisateur.visible %}
+                    <p style="color: green">visible</p>
+                {% else %}
+                    <p style="color: red">masqué</p>
+                {% endif %}
+                {% if app.user is not null and app.user.code is same as utilisateur.code %}
+                    <a href="{{ path('editionProfil') }}"><img src="{{ asset('img/edit.png') }}" alt="edit"/></a>
+                {% endif %}
+            </div>
+            <div id="infos">
+                <div>
+                    <h3>Informations Personnelles</h3>
+                    <p>Prénom: {{ utilisateur.firstName }}</p>
+                    <p>Nom: {{ utilisateur.name }}</p>
+                    <p>Email: {{ utilisateur.email }}</p>
+                    <p>Numéro de téléphone: {{ utilisateur.phone }}</p>
+                    <p>Nationalité: <img src="https://flagsapi.com/{{ utilisateur.nationality }}/flat/32.png"
+                                         alt="drapeau nationalité" style="vertical-align: middle;"></p>
+                </div>
+
+                <div>
+                    <h3>Informations Professionnelles</h3>
+                    <p>LinkedIn: <a href="{{ utilisateur.linkedin }}" target="_blank">{{ utilisateur.linkedin }}</a></p>
+                    <p>Profession: {{ utilisateur.profession }}</p>
+                </div>
+                <div>
+                    <h3>Autre</h3>
+                    <p>Dernière connexion: {{ utilisateur.lastConnexion|date }}</p>
+                    <p>Dernière modification du profil: {{ utilisateur.lastModification|date }}</p>
+
+                </div>
+            </div>
+            {% if is_granted('UTILISATEUR_DELETE', utilisateur) %}
+                <form method="POST" action="{{ path("supprimerUtilisateur",{"code":utilisateur.code}) }}">
+                    <button class="delete-feedy" type="submit">Supprimer</button>
+                </form>
+            {% endif %}
+
+        </div>
     </main>
 {% endblock %}

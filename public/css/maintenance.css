@@ -1,0 +1,24 @@
+body{
+    background-color: #ffe1a6;
+    height: 100vh;
+    overflow-y: hidden;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+h1{
+    background-color: #ce75cd;
+    padding: 10px;
+    border-radius: 5px;
+}
+img{
+    width: 20%;
+    height: auto;
+}
+p{
+    font-size: larger;
+}

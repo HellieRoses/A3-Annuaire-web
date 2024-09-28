@@ -1,0 +1,36 @@
+main > div{
+    width: 90%;
+    margin-left: 5%;
+    & div > a{
+        display: block;
+        & img{
+            width: 35px;
+            height: 35px;
+        }
+    }
+    & > div:first-child{
+        display: flex;
+        align-items: center;
+        & > *{
+            margin-right: 5px;
+        }
+    }
+    & > div:nth-child(2){
+        border-radius: 6px;
+        border: 1px black solid;
+        & > div > *:not(h3){
+            padding-left: 12px;
+        }
+    }
+}
+
+h3{
+    background-color: #e7b5fd;
+    padding-left: 12px;
+}
+
+h3:first-child{
+    margin-top: 0;
+}
+
+

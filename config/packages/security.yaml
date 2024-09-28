@@ -17,7 +17,7 @@ security:
             lazy: true
             provider: app_user_provider
             form_login:
-                login_path: connexion
+                login_path: register
                 check_path: connexion
                 default_target_path: listeUtilisateurs
                 always_use_default_target_path: true

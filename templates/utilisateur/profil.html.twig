@@ -40,7 +40,11 @@
 
                 </div>
             </div>
-
+            {% if is_granted('UTILISATEUR_DELETE', utilisateur) %}
+                <form method="POST" action="{{ path("supprimerUtilisateur",{"code":utilisateur.code}) }}">
+                    <button class="delete-feedy" type="submit">Supprimer</button>
+                </form>
+            {% endif %}
 
         </div>
     </main>

@@ -16,7 +16,7 @@ function changeStatus(texte, erreur) {
 function verifierCodeValide(code) {
     const regex = /^[a-zA-Z0-9]+$/;
     const URL = Routing.generate("checkCode", {"code": code})
-    fetch(URL)
+    fetch(URL, {method: "POST"})
         .then(response => response.json())
         .then(data => {
             if (code.length < 8) {

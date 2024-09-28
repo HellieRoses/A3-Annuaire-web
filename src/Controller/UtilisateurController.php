@@ -166,7 +166,7 @@ class UtilisateurController extends AbstractController
         }
     }
 
-    #[Route('/check/code/{code}', name: 'checkCode', options: ["expose" => true])]
+    #[Route('/check/code/{code}', name: 'checkCode', options: ["expose" => true], methods: ['POST'])]
     public function checkCode(string $code, UtilisateurRepository $repository): JsonResponse
     {
         $utilisateur = $repository->findOneBy(['code' => $code]);

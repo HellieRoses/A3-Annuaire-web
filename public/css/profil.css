@@ -34,3 +34,10 @@ h3:first-child{
 }
 
 
+form:not(#deconnexion) button{
+    width: fit-content;
+    padding: 6px;
+    border-radius: 7px;
+    background-color: #ff5b5b;
+    margin-top: 10px;
+}

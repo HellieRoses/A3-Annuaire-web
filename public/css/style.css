@@ -1,6 +1,9 @@
-html{
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+html {
     scroll-behavior: smooth;
 }
+
 body {
     z-index: 0;
     background-color: #fff9f0;
@@ -10,37 +13,40 @@ body {
     overflow-y: scroll;
 }
 
-p, button {
-    font-family: "";
+p, button, select, input, a, label {
+    font-family: "Montserrat";
 }
 
-main{
+main {
     z-index: 0;
-    margin-top: 5%;
+    margin-top: 80px;
 }
 
 nav {
     position: fixed;
     width: 100%;
-    top:0;
+    top: 0;
     left: 0;
     z-index: 1;
     background-color: #ce75cd;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: medium;
-
     & div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: medium;
+    }
+
+    & div > div {
         align-items: center;
         margin: 5px;
+
         & a:first-child {
             margin-right: 5px;
         }
     }
 
-    & div:nth-child(3) {
+    & div > div:nth-child(3) {
         & a, form {
             padding: 6px;
             border-radius: 7px;
@@ -48,10 +54,14 @@ nav {
         }
     }
 
-    & .underlined{
+    & .underlined {
         text-decoration: underline;
         text-underline-offset: 10px;
         color: white;
+    }
+
+    & > div:nth-child(2){
+        display: none;
     }
 }
 
@@ -87,16 +97,77 @@ a {
 }
 
 
-.flag{
+.flag {
     width: 40px;
     height: auto;
 }
 
 
-.nr, .help-text{
+.nr, .help-text {
     font-style: italic;
 }
 
-fieldset{
+fieldset {
     border: none;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+/*Nav burger*/
+nav > div:nth-child(2){
+    & img{
+        width: 40px;
+        height: 40px;
+    }
+    & #submenu{
+        display: none;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-end;
+        z-index: 6;
+        position: absolute;
+        top: 50px;
+        right: 0;
+        margin: 0;
+        background: #ce75cd;
+        width: fit-content;
+        & > div{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-end;
+            width: 100%;
+            & > p,a{
+                text-align: justify;
+                margin-right: 7px;
+                margin-bottom: 2px;
+            }
+            & > p:hover,a:hover{
+                cursor: pointer;
+            }
+        }
+        & div:first-child{
+            margin-right: 0;
+            margin-bottom: 0;
+            border-bottom: black 1px dotted;
+        }
+
+    }
+}
+
+
+
+/* Responsive*/
+
+@media screen and (max-width: 565px) {
+    nav{
+        & >div:first-child{
+            display: none;
+        }
+        & > div:nth-child(2){
+            display:flex;
+        }
+    }
 }

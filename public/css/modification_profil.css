@@ -1,0 +1,68 @@
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+body{
+    height: 70vh;
+    overflow-y: hidden;
+}
+legend{
+    font-size: 30px;
+    background-color: #ffe1a6;
+    padding: 6px;
+    border-radius: 6px;
+    width: fit-content;
+}
+.form-edition{
+
+    width: 50%;
+}
+
+fieldset{
+    & > div:first-child{
+
+        display: flex;
+        justify-content: center;
+        margin-bottom: 5vh;
+    }
+    & > div:not(:first-child){
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+    & > div:not(#visibleForm) input{
+        width: 100%;
+    }
+    & > div#visibleForm{
+        flex-direction: row;
+        align-items: center;
+        & input{
+            margin-left: 15px;
+        }
+    }
+}
+
+
+input:not(input[type="checkbox"]), select{
+    padding: 5px;
+    font-size: medium;
+}
+
+label{
+    font-size: large;
+}
+
+
+form:not(#deconnexion) button{
+    width: 100%;
+    padding: 6px;
+    border-radius: 7px;
+    background-color: #ffc3a6;
+    margin-top: 10px;
+}

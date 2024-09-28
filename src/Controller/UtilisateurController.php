@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class UtilisateurController extends AbstractController
 {
@@ -98,14 +99,19 @@ class UtilisateurController extends AbstractController
         return $this->render('utilisateur/listeUtilisateur.html.twig', ['users' => $users]);
     }
 
-
-    #[Route('/profil/utilisateur/{code}', name: 'profil', methods: ['GET'])]
-    public function profil(string $code, UtilisateurRepository $repository): Response
+    #[Route('/profil/utilisateur/{code}', name:'profil', methods: ['GET'])]
+    public function profil(?Utilisateur $utilisateur):Response
     {
-        $utilisateur = $repository->findOneBy(["code" => $code]);
 
-        return $this->render('utilisateur/profil.html.twig', ['utilisateur' => $utilisateur]);
+        if ($utilisateur != null) {
+            return $this->render('utilisateur/profil.html.twig', ['utilisateur' => $utilisateur]);
+        }
+        else {
+            $this->addFlash("error","L'utilisateur n'existe pas");
+            return $this->redirectToRoute("listeUtilisateurs");
+        }
     }
+
 
     #[Route('/profil/delete/{code}',name: 'supprimerUtilisateur', methods: ['POST'])]
     public function suppressionProfil(?Utilisateur $utilisateur):Response
@@ -128,4 +134,17 @@ class UtilisateurController extends AbstractController
     }
 
 
+    #[Route('/profil/utilisateur/{code}/json', name:'profilFormatJSON', methods: ['GET'])]
+    public function profilFormatJSON(?Utilisateur $utilisateur, SerializerInterface $serializer):Response
+    {
+        if ($utilisateur !== null) {
+            $utilisateurArray = $serializer->normalize($utilisateur);
+            unset($utilisateurArray["password"]);
+            $jsonUtilisateur = json_encode($utilisateurArray);
+            return new JsonResponse($jsonUtilisateur, 200, ['Content-Type' => 'application/json']);
+        }
+        else {
+            return new JsonResponse(null, Response::HTTP_NOT_FOUND);
+        }
+    }
 }

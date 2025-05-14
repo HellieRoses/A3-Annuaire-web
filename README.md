@@ -76,9 +76,9 @@ L'option **--profession** permet de renseigner la profession de l'utilisateur
 
 ## Investissement du groupe
 
-- Clément HAMEL : Informations d'un utilisateur en JSON, Vue du profil d'un utilisateur, JavaScript
+- Clément H. : Informations d'un utilisateur en JSON, Vue du profil d'un utilisateur, JavaScript
 - Maëlys BOISSEZON : Connexion, deconnexion, liste des utilisateurs, édition de profil, CSS, dates d'édition et de connexion, classe Utilisateur 
-- Romain TOUZÉ : Suppression Profil, Mode maintenance, Inscription, Commande Symfony, Role Admin, Initialisation du projet
+- Romain T. : Suppression Profil, Mode maintenance, Inscription, Commande Symfony, Role Admin, Initialisation du projet
 
 ## Indications supplémentaires
 
